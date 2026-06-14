@@ -12,6 +12,8 @@ axiosInstance.interceptors.request.use((config) => {
     return config;
 })
 
+
+
 axiosInstance.interceptors.response.use(
     (response) => {
         const method = response.config.method.toUpperCase();

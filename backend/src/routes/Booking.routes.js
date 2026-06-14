@@ -1,6 +1,6 @@
 
 const express = require("express");
-const auth = require("../middleware/jsonWebTokenCheck");
+const auth = require("../Middleware/jsonWebTokenCheck");
 
 const {
   createBooking,
