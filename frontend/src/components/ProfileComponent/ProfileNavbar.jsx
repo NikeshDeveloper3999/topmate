@@ -1,0 +1,132 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+    Monitor,
+    Smartphone,
+    User,
+    Plus,
+    Image,
+    List,
+    Trophy,
+} from "lucide-react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const ProfileNavbar = ({ onClose, onClose5, onClose2, onClose3, onClose4, view, setView }) => {
+
+    const userProfile = useSelector((state) => state.userProfile);
+    const { color } = userProfile;
+    const { userId } = useSelector(state => state.userData);
+    const navigate = useNavigate();
+
+    const handleLivePage = () => {
+        navigate(`/profile/${userId}`);
+    };
+
+    return (
+        <div className="w-full flex items-center justify-between px-6 py-3 bg-white shadow-sm border-b">
+
+            {/* Left Toggle */}
+            <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-xl">
+                <button
+                    onClick={() => setView("desktop")}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${view === "desktop"
+                        ? "bg-gray-800 text-white"
+                        : "text-gray-600"
+                        }`}
+                >
+                    <Monitor size={16} />
+                    Desktop
+                </button>
+
+                <button
+                    onClick={() => setView("mobile")}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer ${view === "mobile"
+                        ? "bg-gray-800 text-white"
+                        : "text-gray-600"
+                        }`}
+                >
+                    <Smartphone size={16} />
+                    Mobile
+                </button>
+            </div>
+
+            {/* Center Icons */}
+            <div className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-2xl shadow-inner">
+
+                {/* Main Icon (yellow box) */}
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`p-2 rounded-xl `}
+                    style={{ backgroundColor: color }}
+                    onClick={onClose}
+                >
+                    <div className="w-5 h-5 rounded-md"
+                        style={{ backgroundColor: color }} />
+                </motion.button>
+
+                {/* Other Icons */}
+                <motion.button
+                    onClick={onClose2}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+                >
+                    <User size={18} />
+                </motion.button>
+
+                <motion.button
+                    onClick={onClose3}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+                >
+                    <Plus size={18} />
+                </motion.button>
+
+                <motion.button
+                    onClick={() => toast("This feature is not available yet!", { icon: "🚧" })}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+                >
+                    <Image size={18} />
+                </motion.button>
+
+                <motion.button
+                    onClick={onClose4}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+                >
+                    <List size={18} />
+                </motion.button>
+
+                <motion.button
+                    onClick={onClose5}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200"
+                >
+                    <Trophy size={18} />
+                </motion.button>
+            </div>
+
+            {/* Right Actions */}
+            <div
+                onClick={handleLivePage}
+                className="flex items-center gap-3">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    className="px-4 py-2 bg-gray-200 rounded-xl font-medium"
+                >
+                    Open Live Page
+                </motion.button>
+            </div>
+        </div>
+    );
+};
+
+export default ProfileNavbar;
