@@ -1,24 +1,18 @@
 import { ArrowRight } from "lucide-react";
 import eyeimg  from '../../assets/about-eye.svg'
+import { useNavigate } from "react-router-dom";
+
 
 export default function Aboutjourney() {
+
+const navigate = useNavigate();
+
   return (
     <div className="h-[80vh] bg-[#d6bfd0] flex items-center px-6  md:px-20 py-20 relative ">
       
         
-      <img 
-  src={eyeimg} 
-  alt="" 
-  className="
-    absolute 
-    w-[80px] sm:w-[100px] md:w-[120px] lg:w-[140px] xl:w-[160px]
-    top-10 sm:top-16 md:top-20 
-    left-1/2 lg:left-[65%] 
-    -translate-x-1/2 lg:translate-x-0
-    opacity-80
-    pointer-events-none
-  " 
-/>
+      <img src={eyeimg} alt="" 
+  className="absolute w-[80px] sm:w-[100px] md:w-[120px] lg:w-[140px] xl:w-[160px] top-10 sm:top-16 md:top-20  left-1/2 lg:left-[65%] -translate-x-1/2 lg:translate-x-0opacity-80pointer-events-none" />
 
 
       <div className="flex flex-col md:flex-row justify-center w-full items-center gap-10  ">
@@ -43,7 +37,7 @@ border-2 border-black
 hover:bg-black hover:text-white 
 hover:shadow-xl transition-all duration-300">
 
-  <span className="font-semibold text-black group-hover:text-white text-base sm:text-lg">
+  <span className="font-semibold text-black group-hover:text-white text-base sm:text-lg cursor-pointer " onClick={() =>{navigate('/creator-dashboard/home')}}>
     Start today
   </span>
 

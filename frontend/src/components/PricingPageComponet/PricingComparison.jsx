@@ -5,8 +5,10 @@ import TopmateLogo from "../../assets/topmate-light-logo.svg";
 import calendlylogo from "../../assets/calendly-logo.svg";
 import glogo from "../../assets/gumroad-logo.svg";
 
+import { useNavigate } from "react-router-dom";
 
 export default function PricingComparison() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white px-4 sm:px-8 py-10">
 
@@ -144,7 +146,7 @@ export default function PricingComparison() {
       </div>
       <div className="w-full justify-center flex items-center mt-10 mb-10">
 
-<button className="bg-black text-white justify-center  w-auto  py-2 px-10  text-xl rounded-full">
+<button className="bg-black text-white justify-center  w-auto  py-2 px-10  text-xl rounded-full" onClick={() => {navigate('/creator-dashboard/home')}}>
 Get Started 
 </button>
       </ div>

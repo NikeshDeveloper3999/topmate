@@ -41,9 +41,10 @@ const testimonials = [
 ];
 
 const Hero4 = () => {
-    const [active, setActive] = useState(0);
+const [active, setActive] = useState(0);
 
     const groupedTestimonials = [];
+
     for (let i = 0; i < testimonials.length; i += 2) {
         groupedTestimonials.push(testimonials.slice(i, i + 2));
     }

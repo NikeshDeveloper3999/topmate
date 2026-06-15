@@ -5,10 +5,7 @@ import EarningsSection from '../components/PricingPageComponet/EarningsSection';
 import PricingCards from '../components/PricingPageComponet/PricingCards';
 import PricingGrid from '../components/PricingPageComponet/PricingGrid';
 import PricingComparison from '../components/PricingPageComponet/PricingComparison';
-import SwiperPage from '../components/PricingPageComponet/SwiperPage';
 import CommonQnAMeeting from '../components/ui/CommonQnAMeeting';
-
-import HomeFAQ from '../components/HomePageComponent/Hero5';
 
 export default function Pricing() {
 

@@ -103,7 +103,8 @@ const Footer = () => {
 
           {/* Address */}
           <p className="text-gray-400 text-base md:text-lg font-semibold">
-            548 Market St PMB 30073, San Francisco
+            Mp nagar, Bhopal, INDIA  462001<br></br>
+            Phone: +91 8827934630
           </p>
 
           {/* Copyright */}
@@ -114,9 +115,9 @@ const Footer = () => {
 
         {/* RIGHT SIDE */}
         <div className="flex gap-6 text-gray-300 text-2xl flex-1 items-center w-full justify-center lg:justify-end">
-          <FaLinkedin className="cursor-pointer hover:text-white" />
-          <FaTwitter className="cursor-pointer hover:text-white" />
-          <FaInstagram className="cursor-pointer hover:text-white" />
+          <FaLinkedin className="cursor-pointer hover:text-white" onClick={() => {window.open("https://www.linkedin.com/in/nikesh-parte-5134972b7")}} />
+          <FaTwitter className="cursor-pointer hover:text-white" onClick={() => {window.open("https://www.linkedin.com/in/nikesh-parte-5134972b7")}} />
+          <FaInstagram className="cursor-pointer hover:text-white" onClick={() => {window.open("https://www.linkedin.com/in/nikesh-parte-5134972b7")}} />
         </div>
 
       </div>

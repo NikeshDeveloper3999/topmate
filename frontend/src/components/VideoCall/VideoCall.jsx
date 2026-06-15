@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../../utility/axios";
 
-<<<<<<< HEAD
-=======
-
->>>>>>> nikesh
 function VideoCallPage() {
 
   const { callId } = useParams();

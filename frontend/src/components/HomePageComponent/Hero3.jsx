@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
+import { useNavigate } from "react-router-dom";
 import img1 from '../../assets/hero3_img1.jpg'
 import img2 from '../../assets/hero3_img2.jpg'
 import img3 from '../../assets/hero3_img3.jpg'
@@ -45,7 +45,7 @@ const Hero3 = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [image, setImage] = useState(data[0].img);
-
+  const navigate = useNavigate();
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   gsap.registerPlugin(ScrollTrigger);
@@ -104,7 +104,7 @@ const Hero3 = () => {
             Start earning $$ by the time you finish reading our website
           </p>
 
-          <p className='text-lg sm:text-xl mt-6 w-fit border-b'>
+          <p className='text-lg sm:text-xl mt-6 w-fit border-b cursor-pointer' onClick={() => {navigate('/creator-dashboard/home')}}>
             Launch your page ↗️
           </p>
         </div>

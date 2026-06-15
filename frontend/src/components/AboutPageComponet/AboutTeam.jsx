@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "../../assets/about-team.png";
-import tanushImage from "../../assets/tanushImage.jpeg"
+import tanushImage from "../../assets/tanushImage.jpg"
 
 const topTeam = [
   {

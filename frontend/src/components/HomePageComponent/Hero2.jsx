@@ -47,7 +47,7 @@ const Hero2 = () => {
               px-3 py-2 sm:px-4 rounded-lg 
               transition transform hover:scale-105 duration-300 
               text-sm sm:text-base w-full sm:w-auto
-            ">
+            " onClick={() => {navigate('/marketplace')}}>
               Find your niche
             </button>
           </div>

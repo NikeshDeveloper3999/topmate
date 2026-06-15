@@ -2,7 +2,7 @@ import React from "react";
 import pricingFeatures3 from "../../assets/pricing-features-3.svg";
 import pricingFeatures4 from "../../assets/pricing-features-4.svg";
 import pricingFeatures5 from "../../assets/pricing-features-5.svg";
-import pricingFeatures2 from "../../assets/pricingGrid-features-2.svg";
+import pricingFeatures2 from "../../assets/pricinggrid-features-2.svg";
 import pricingFeatures1 from "../../assets/pricingGrid-features-1.svg";
 
 export default function PricingGrid() {

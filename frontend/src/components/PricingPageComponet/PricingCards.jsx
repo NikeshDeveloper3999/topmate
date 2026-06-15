@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useNavigate } from "react-router-dom";
 
 export default function PricingCards() {
   const cardsRef = useRef([]);
-
+  const Navigate = useNavigate();
+  
   useEffect(() => {
     gsap.fromTo(
       cardsRef.current,
@@ -70,7 +72,7 @@ export default function PricingCards() {
             </p>
           </div>
 
-          <button className="mt-4 bg-black text-white px-5 py-2.5 rounded-xl hover:bg-gray-800 transition w-full">
+          <button className="mt-4 bg-black text-white px-5 py-2.5 rounded-xl hover:bg-gray-800 transition w-full cursor-pointer"  onClick={()=>{Navigate(window.open("https://www.linkedin.com/in/nikesh-parte-5134972b7"))}}>
             Contact Sales
           </button>
         </div>
