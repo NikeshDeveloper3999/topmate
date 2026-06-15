@@ -3,8 +3,8 @@
 const express = require("express");
 const router = express.Router();
 const { requestWithdrawal, getWithdrawals, getAllWithdrawals, updateWithdrawalStatus } = require("../controllers/Withdraw.controller");
-const auth = require('../middleware/jsonWebTokenCheck');
-const adminAuth = require('../middleware/adminAuth');
+const auth = require('../Middleware/jsonWebTokenCheck');
+const adminAuth = require('../Middleware/adminAuth');
 
 router.post("/seller/withdraw", auth, requestWithdrawal);
 router.get("/seller/withdrawals", auth, getWithdrawals);
