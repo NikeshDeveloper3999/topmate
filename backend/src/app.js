@@ -16,9 +16,14 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin:"http://localhost:5175",
-    credentials:true
-}))
+  origin: [
+    "http://localhost:5175",
+    "https://topmatee.netlify.app"
+  ],
+  credentials: true
+}));
+
+
 app.use(cookieParser())
 
 morgan.token("status-colored", (req, res) => {

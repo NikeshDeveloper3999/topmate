@@ -35,7 +35,7 @@ const signUp = async (req, res) => {
     const hashPassword = hashingPassword(data.password);
     const user = await User.create({ ...data, password: hashPassword });
     const token = genratedToken(user._id);
-    res.cookie("token", token, { httpOnly: true, sameSite: "strict", maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie("token", token, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 });
     return res.status(200).json({ status: true, message: "User SignUp Successfully", user });
   } catch (error) {
     console.log(error);
@@ -53,7 +53,7 @@ const signIn = async (req, res) => {
     const verifyPassword = comparePassword(password, user.password);
     if (!verifyPassword) return res.status(200).json({ status: false, message: "Invalid password" });
     const token = genratedToken(user._id);
-    res.cookie("token", token, { httpOnly: true, sameSite: "strict", maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie("token", token, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 });
     return res.status(200).json({ status: true, message: "User SignIn Successfully", user });
   } catch (error) {
     console.log(error);
@@ -69,7 +69,7 @@ const signInWithGoogle = async (req, res) => {
     const user = await User.findOne({ email })
     if (!user) return res.status(200).json({ status: false, message: "User not exist please signup first" });
     const token = genratedToken(user._id);
-    res.cookie("token", token, { httpOnly: true, sameSite: "strict", maxAge: 24 * 60 * 60 * 1000 });
+    res.cookie("token", token, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 });
     return res.status(200).json({ status: true, message: "User SignIn Successfully", user });
   } catch (error) {
     console.log(error);

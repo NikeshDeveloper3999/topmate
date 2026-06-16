@@ -35,4 +35,5 @@ axiosInstance.interceptors.response.use(
     }
 )
 
+axios.defaults.withCredentials = true;
 export default axiosInstance
