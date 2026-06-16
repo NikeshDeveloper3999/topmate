@@ -5,6 +5,8 @@ const axiosInstance = axios.create({
     withCredentials: true,
 })
 
+// console.log(baseURL);
+
 axiosInstance.interceptors.request.use((config) => {
     const method = config.method.toUpperCase();
     const url = config.baseURL + config.url;
