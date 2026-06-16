@@ -35,7 +35,9 @@ morgan.token("status-colored", (req, res) => {
 app.use(morgan("\x1b[35m[API]\x1b[0m :method :url :status-colored :response-time ms"))
 
 //routes middleware
-
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully");
+});
 app.use("/api/user",userRouter);
 app.use("/api/service",serviceRouter);
 app.use("/api/booking",bookingRoutes);
