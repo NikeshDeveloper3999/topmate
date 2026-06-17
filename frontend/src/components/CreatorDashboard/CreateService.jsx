@@ -161,7 +161,8 @@ const handleFilterChange = (value) => {
     <div className="min-h-screen bg-white">
 
       {/* Header */}
-      <div className="flex items-center gap-3 px-10 py-6 border-b">
+        <div className="flex items-center gap-3 px-4 md:px-10 py-4 md:py-6 border-b">
+
         <FaArrowLeft className="text-xl text-gray-600 cursor-pointer" />
         <h1 className="text-2xl font-semibold">
           What are you creating today?
@@ -169,15 +170,18 @@ const handleFilterChange = (value) => {
       </div>
 
       {/* Content */}
-      <div className="flex px-10 py-8 gap-8">
+        <div className="flex flex-col lg:flex-row px-4 md:px-10 py-8 gap-8">
+
 
         {/* LEFT SIDE */}
-        <div className="w-[40%] ">
+            <div className="w-full lg:flex-1">
+
 
           {/* Select Type */}
           <h2 className="text-lg font-semibold mb-4">Select type</h2>
 
-          <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+
             {filter.map((card) => (
               <div
                 key={card.value}
@@ -208,17 +212,10 @@ const handleFilterChange = (value) => {
                 
             <div>
               <label className="block text-sm font-medium mb-1">Title</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleFormChange}
-                placeholder="Name of Service"
-                className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-black"
-              />
+              <input type="text" name="title" value={formData.title} onChange={handleFormChange} placeholder="Name of Service" className="w-full border rounded-md px-3 py-2 outline-none focus:ring-2 focus:ring-black" />
             </div>
 
-            <div className={` ${ selected === "product" ? "hidden" : ""}`}>
+            <div className={` ${ selected === "product"  || selected === "priorityDm" ? "hidden" : ""}`}>
               <label className="block text-sm font-medium mb-1">
                 Duration (mins)
               </label>
@@ -256,7 +253,7 @@ const handleFilterChange = (value) => {
         </div>
 
         {/* RIGHT SIDE */}
-        <div key={currentStep} className="hidden  md:block   bg-[#F7F6F2] w-[20%] rounded-xl transition-all duration-500 ease-in-out opacity-100 h-[250px] ml-20   ">
+        <div key={currentStep} className="hidden lg:block lg:w-[320px] shrink-0">
 
           <div className="flex-1 ">
             <div

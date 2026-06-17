@@ -95,15 +95,20 @@ function CreatorBooking() {
 
     return `${formattedDate} ${startTime} - ${endTime}`;
   };
-
-  // FETCH BOOKINGS
+  
+  
+  
+  
+  
+  
   useEffect(() => {
-
+    
     if (!userData?.userId) return;
-
+    
     getCreatorBookings(userData.userId);
-
+    
   }, [userData]);
+  
 
   // FILTER BOOKINGS
   useEffect(() => {
@@ -163,20 +168,10 @@ function CreatorBooking() {
 
   const handleTabChange = (tab) => { navigate(`/creator-dashboard/calls/${activeFilter}/${tab}`); };
 
-  const handleFilterChange = (
-    filter) => {
-    navigate(
-      `/creator-dashboard/calls/${filter}/${activeTab}`
-    );
-  };
-
-
-
+  const handleFilterChange = (filter) => {navigate(`/creator-dashboard/calls/${filter}/${activeTab}`);};
 
   // LOADING
-  if (loading) {
-    return <SkeletonBookingList />;
-  }
+  if (loading) {return <SkeletonBookingList />;}
 
   // ERROR
   if (error) {
@@ -189,7 +184,7 @@ function CreatorBooking() {
     );
   }
 
-
+  
   return (
     <div className="w-full min-h-screen bg-gray-50 px-6 py-6">
 
@@ -203,19 +198,11 @@ function CreatorBooking() {
 
         {filters.map((item) => (
 
-          <button
-            key={item.value}
-            onClick={() =>
-              handleFilterChange(item.value)
-            }
+          <button key={item.value} onClick={() => handleFilterChange(item.value)}
             className={`px-4 py-2 rounded-full border text-sm transition-all duration-200 ${activeFilter === item.value
               ? "bg-black text-white border-black"
-              : "border-gray-300 bg-white text-gray-600"
-              }`}
-          >
-            {item.label}
+              : "border-gray-300 bg-white text-gray-600"}`}>{item.label}
           </button>
-
         ))}
 
       </div>
@@ -225,28 +212,12 @@ function CreatorBooking() {
         className={`flex gap-6 border-b mb-10 ${[
           "one-to-one",
           "webinar",
-        ].includes(activeFilter)
-          ? ""
-          : "hidden"
-          }`}
-      >
-
-        <button
-          onClick={() =>
-            handleTabChange("upcoming")
-          }
+        ].includes(activeFilter)? "": "hidden"}`}>
+        <button onClick={() =>handleTabChange("upcoming")}
           className={`pb-2 text-sm transition-all duration-200 ${activeTab === "upcoming"
             ? "border-b-2 border-black font-medium text-black"
-            : "text-gray-500"
-            }`}
-        >
-          Upcoming
-        </button>
-
-        <button
-          onClick={() =>
-            handleTabChange("completed")
-          }
+            : "text-gray-500"}`}>Upcoming</button>
+        <button onClick={() =>handleTabChange("completed")}
           className={`pb-2 text-sm transition-all duration-200 ${activeTab === "completed"
             ? "border-b-2 border-black font-medium text-black"
             : "text-gray-500"
@@ -261,12 +232,12 @@ function CreatorBooking() {
       {data.length > 0 ? (
         <div className="space-y-4  ">
 
-          {data.map((item) => (
-
-            <div 
-              key={item._id}
-              className="max-w-2xl border rounded-2xl shadow-sm relative  "
-            >
+          {data.map((item) => {
+            
+            const canJoin = item?.service?.category === "one-to-one" && item?.status === "confirmed" && isMeetingTimeReached(item?.date, item?.time);
+            
+            return(
+            <div key={item._id}className="max-w-2xl border rounded-2xl shadow-sm relative  ">
 
               {/* TOP */}
               <div className="flex justify-between items-center px-6 py-4 border-b  top-rounded-xl">
@@ -365,7 +336,7 @@ function CreatorBooking() {
                     )}
 
                     {/* JOIN / ACCESS */}
-                    <button
+                    {/* <button 
                       className={`px-4 py-2 rounded-lg text-sm ${item?.service?.category !== "product" && !isMeetingTimeReached(item?.date, item?.time)
                           ? "bg-gray-400 text-gray-500 cursor-not-allowed"
                           : "bg-black text-white hover:opacity-90"
@@ -396,7 +367,42 @@ function CreatorBooking() {
                       {item?.service?.category === "product"
                         ? "Access"
                         : "Join"}
-                    </button>
+                    </button> */}
+
+<button  
+  className={`px-4 py-2 rounded-lg text-sm ${
+    item?.service?.category === "product" || canJoin
+      ? "bg-black text-white hover:opacity-90"
+      : "bg-gray-400 text-gray-500 cursor-not-allowed"
+  }`}
+  onClick={() => {
+    if (item?.service?.category === "product") {
+      navigate("/booking/success", {
+        state: {
+          booking: item,
+          service: item?.service,
+          creator: item?.seeker,
+        },
+      });
+      return;
+    }
+
+    if (canJoin) {
+      navigate("/booking/video-call-status", {
+        state: {
+          booking: item,
+          service: item?.service,
+          creator: item?.seeker,
+        },
+      });
+    }
+  }}
+  disabled={item?.service?.category !== "product" && !canJoin}
+>
+  {item?.service?.category === "product"
+    ? "Access"
+    : "Join"}
+</button>
 
                   </div>
 
@@ -405,8 +411,8 @@ function CreatorBooking() {
               </div>
 
             </div>
-
-          ))}
+            )
+          })}
 
         </div>
 
