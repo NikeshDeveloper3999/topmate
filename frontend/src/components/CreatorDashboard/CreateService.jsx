@@ -163,7 +163,7 @@ const handleFilterChange = (value) => {
       {/* Header */}
         <div className="flex items-center gap-3 px-4 md:px-10 py-4 md:py-6 border-b">
 
-        <FaArrowLeft className="text-xl text-gray-600 cursor-pointer" />
+        <FaArrowLeft className="text-xl text-gray-600 cursor-pointer" onClick={() => navigate(-1)} />
         <h1 className="text-2xl font-semibold">
           What are you creating today?
         </h1>

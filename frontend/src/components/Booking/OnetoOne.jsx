@@ -131,13 +131,6 @@ navigate("/booking/confirm", {
 };
 
 
-
-
-
-
-
-
-
 useEffect(() => {
   if (allDates.length > 0) {
     const exists = allDates.some(
@@ -159,10 +152,9 @@ if (isLoading) return <SkeletonBookingProduct />;
 
 
   return (
-    <div className="min-h-screen bg-[#D65A4A] flex justify-center gap-6 p-6">
-
+<div className="min-h-screen bg-[#D65A4A] flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-4 md:p-6">
      
-<div className="bg-white rounded-3xl w-[520px] ">
+<div className=" h-screen bg-white  rounded-3xl w-full max-w-[520px] sm:h-[700px] md:h-screen " >
 <div className="bg-[#F7DDDB] p-6 rounded-t-3xl">
     
   <div className="flex items-center gap-2 text-sm mb-4 cursor-pointer">
@@ -181,21 +173,18 @@ if (isLoading) return <SkeletonBookingProduct />;
       </span>
   </div>
 
-  <div className="flex justify-between items-center">
-    <h1 className="text-xl font-bold leading-snug w-[70%]">
+  <div className="flex justify-between items-center gap-4">
+  <h1 className="text-lg md:text-xl font-bold leading-snug flex-1">
       {service?.title}
     </h1>
 
-    <img
-      src={user?.userImageUrl}
-      className="w-19 h-19 rounded-full object-cover"
-    />
+    <img src={user?.userImageUrl}className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover"/>
   </div>
 
 
 </div>
 
-  <div className="grid grid-cols-3 text-gray-600 border-b-1 border-gray-600  overflow-hidden text-sm ">
+<div className="grid grid-cols-3 text-gray-600 border-b border-gray-600 overflow-hidden text-xs md:text-sm">
     <div className="p-3 border-r text-lg font-medium">
       ₹ {service?.price}
     </div>
@@ -225,8 +214,7 @@ if (isLoading) return <SkeletonBookingProduct />;
     </p>
   </div>
 
-  <p className="text-sm text-gray-600 mt-4 leading-relaxed m-6">
-
+  <p className="text-sm text-gray-600 mt-4 leading-relaxed mx-4 md:mx-6 mb-6">
     {service?.longDescription}    
  
   </p>
@@ -239,107 +227,109 @@ if (isLoading) return <SkeletonBookingProduct />;
 </div>
 
 
-      <div className="bg-white shadow-md rounded-2xl w-[340px] p-5">
+<div className="bg-white shadow-md rounded-2xl w-full max-w-[500px] lg:max-w-[340px] p-4 md:p-5">
 
-        <h3 className="font-semibold mb-3">When should we meet?</h3>
+  <h3 className="font-semibold mb-3">When should we meet?</h3>
 
-<div className="flex items-center justify-between gap-2">
+  <div className="flex items-center gap-2">
 
-  {/* LEFT */}
-  <button
-    onClick={() => setStartIndex((prev) => Math.max(prev - 1, 0))}
-    className="w-8 h-8 flex items-center justify-center rounded-full border hover:bg-gray-100"
-  >
-    ←
-  </button>
+    {/* LEFT */}
+    <button
+      onClick={() => setStartIndex((prev) => Math.max(prev - 1, 0))}
+      className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border hover:bg-gray-100"
+    >
+      ←
+    </button>
 
-  {/* DATES */}
-  <div className="flex gap-2 overflow-hidden">
-    {visibleDates.map((item, index) => {
-      const d = item.date;
+    {/* DATES */}
+    <div className="flex gap-2 flex-1 overflow-x-auto scrollbar-hide">
+      {visibleDates.map((item, index) => {
+        const d = item.date;
 
-      return (
-        <button
-          key={index}
-          onClick={() => {
-            setSelectedDay(item);
-            setSelectedDate(d);
-          }}
-          className={`min-w-[75px] px-3 py-2 rounded-xl border text-sm flex flex-col items-center ${
-            selectedDate?.toDateString() === d.toDateString()
-              ? "bg-black text-white"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
-        >
-          <span className="text-xs">
-            {d.toLocaleDateString("en-US", { weekday: "short" })}
-          </span>
+        return (
+          <button
+            key={index}
+            onClick={() => {
+              setSelectedDay(item);
+              setSelectedDate(d);
+            }}
+            className={`flex-shrink-0 min-w-[70px] sm:min-w-[75px] px-2 py-2 rounded-xl border-2 border-gray-100 text-xs sm:text-sm flex flex-col items-center ${
+              selectedDate?.toDateString() === d.toDateString()
+                ? "bg-black text-white"
+                : "bg-white-100 hover:bg-gray-200"
+            }`}
+          >
+            <span className="text-xs">
+              {d.toLocaleDateString("en-US", { weekday: "short" })}
+            </span>
 
-          <span className="font-semibold">
-            {d.getDate()}
-          </span>
+            <span className="font-semibold">
+              {d.getDate()}
+            </span>
 
-          <span className="text-[10px] text-gray-500">
-            {d.toLocaleDateString("en-US", { month: "short" })}
-          </span>
-        </button>
-      );
-    })}
+            <span
+              className={`text-[10px] ${
+                selectedDate?.toDateString() === d.toDateString()
+                  ? "text-gray-300"
+                  : "text-gray-500"
+              }`}
+            >
+              {d.toLocaleDateString("en-US", { month: "short" })}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+
+    {/* RIGHT */}
+    <button
+      onClick={() =>
+        setStartIndex((prev) =>
+          Math.min(prev + 1, Math.max(allDates.length - visibleCount, 0))
+        )
+      }
+      className="flex-shrink-0 w-5 h-8 flex items-center justify-center rounded-full border hover:bg-gray-100"
+    >
+      →
+    </button>
+
   </div>
 
-  {/* RIGHT */}
+  {/* TIME SLOTS */}
+  <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[200px] overflow-y-auto">
+    {slots.map((time, index) => (
+      <button
+        key={index}
+        onClick={() => setSelectedTime(time)}
+        className={`border px-4 py-2 rounded-lg text-sm ${
+          selectedTime === time
+            ? "bg-yellow-200 border-yellow-500"
+            : "hover:bg-yellow-100"
+        }`}
+      >
+        {time}
+      </button>
+    ))}
+  </div>
+
+  {/* TIMEZONE */}
+  <p className="text-xs text-gray-500 mt-3">
+    {user?.timezone}
+  </p>
+
   <button
-    onClick={() =>
-      setStartIndex((prev) =>
-        Math.min(prev + 1, Math.max(allDates.length - visibleCount, 0))
-      )
-    }
-    className="w-8 h-8 flex items-center justify-center rounded-full border hover:bg-gray-100"
+    onClick={handleContinue}
+    disabled={!selectedTime}
+    className={`w-full mt-4 py-2 rounded-lg transition ${
+      selectedTime
+        ? "bg-black text-white"
+        : "bg-gray-300 cursor-not-allowed"
+    }`}
   >
-    →
+    Continue
   </button>
 
 </div>
-
-
-
-<div className="mt-4 grid grid-cols-3 gap-3 max-h-[200px] overflow-y-auto">
-  {slots.map((time, index) => (
-    <button
-      key={index}
-      onClick={() => setSelectedTime(time)}
-      className={`border px-4 py-2 rounded-lg text-sm ${
-        selectedTime === time
-          ? "bg-yellow-200 border-yellow-500"
-          : "hover:bg-yellow-100"
-      }`}
-    >
-      {time}
-    </button>
-  ))}
-</div>
-
-        {/* Timezone */}
-        <p className="text-xs text-gray-500 mt-3">
-          {user?.timezone}
-        </p>
-<button
-  onClick={handleContinue}
-  disabled={!selectedTime}
-  className={`w-full mt-4 py-2 rounded-lg ${
-    selectedTime
-      ? "bg-black text-white"
-      : "bg-gray-300 cursor-not-allowed"
-  }`}
->
-          Continue
-        </button>
-
-
-
-
-
-      </div>
 
     </div>
   );

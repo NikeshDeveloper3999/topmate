@@ -5,7 +5,7 @@ import UpcomingFeature from "../components/ui/UpcomingFeature";
 
 const Upcoming = () => {
   const location = useLocation();
-  const type = location.state?.type || "webinar";
+  const type = location.state?.type || "template";
 
   return (
     <>

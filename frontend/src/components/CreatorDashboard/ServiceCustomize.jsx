@@ -145,11 +145,10 @@ const handleDelete = (id) => {
         </button>
       </div>
 
-      {/* Main Layout */}
-      <div className="flex gap-8 m-10">
+      {/* Main Layout */}<div className="flex flex-col lg:flex-row gap-8 p-4 sm:p-6 lg:p-10">
 
         {/* LEFT */}
-        <div className="w-[35%] space-y-5">
+        <div className="w-full lg:w-[65%] space-y-5">
 
           <input
             value={formData.title}
@@ -249,12 +248,7 @@ const handleDelete = (id) => {
 </div>
           {/* Instructions */}
           <div className="flex flex-col gap-3">
-            <button
-              onClick={() => setShowInstructionInput(!showInstructionInput)}
-              className="border px-4 py-2 rounded">
-              Add Instructions
-            </button>
-
+            <button onClick={() => setShowInstructionInput(!showInstructionInput)} className="border px-4 py-2 rounded"> Add Instructions</button>
             {showInstructionInput && (
               <input
                 value={formData.instructions}
@@ -292,25 +286,33 @@ const handleDelete = (id) => {
         </div>
 
         {/* RIGHT */}
-        <div className="flex-1 flex justify-center h-[200px]">
-          <div className="w-[300px] bg-white border rounded-xl p-5 shadow-sm">
-            <span className="text-xs bg-yellow-100 px-2 py-1 rounded">
-              Beta
-            </span>
 
-            <h3 className="font-semibold mt-2">
-              Create service landing page
-            </h3>
 
-            <p className="text-sm text-gray-500 mt-2">
-              Optimized for conversion and a better way to present a service
-            </p>
+        <div className="hidden lg:flex lg:w-[35%] justify-center">
+  <div className="w-full max-w-[300px] bg-white border rounded-xl p-5 shadow-sm h-fit sticky top-5">
+    <span className="text-xs bg-yellow-100 px-2 py-1 rounded">
+      Beta
+    </span>
 
-            <button className="bg-black text-white w-full mt-4 py-2 rounded">
-              Try Now
-            </button>
-          </div>
-        </div>
+    <h3 className="font-semibold mt-2">
+      Create service landing page
+    </h3>
+
+    <p className="text-sm text-gray-500 mt-2">
+      Optimized for conversion and a better way to present a service
+    </p>
+
+    <button
+      className="bg-black text-white w-full mt-4 py-2 rounded cursor-pointer"
+      onClick={() =>
+        navigate(`/creator-dashboard/services/${type}/create`)
+      }
+    >
+      Try Now
+    </button>
+  </div>
+</div>
+
 
       </div>
     </div>

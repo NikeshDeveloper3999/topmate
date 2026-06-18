@@ -18,8 +18,8 @@ const LeftSideVeiw = ({ mobile }) => {
 
     if (mobile) {
         return (
-            <div className="flex flex-col items-center text-center" style={{ backgroundColor: color }}>
-                <img className="w-24 h-24 rounded-full object-cover" src={profileImage} alt="profile" />
+            <div className="flex flex-col items-center text-center p-2 " style={{ backgroundColor: color }}>
+                <img className="w-30 h-30  rounded-full object-fit" src={profileImage} alt="profile" />
                 <h1 className="mt-4 text-2xl font-bold text-black">{displayName}</h1>
                 {topmateIntro && (
                     <p className="mt-2 text-black text-lg font-medium">{topmateIntro}</p>

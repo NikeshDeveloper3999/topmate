@@ -55,7 +55,7 @@ const PublicProfile = () => {
         );
     }
 
-    const { user, profileDesign } = profileData;
+    const { user, profileDesign, servicesData } = profileData;
     const profile = profileDesign || {};
     const color = profile.color || "#ffffff";
     const profileImage = profile.profileImage || user?.userImageUrl;
@@ -67,8 +67,9 @@ const PublicProfile = () => {
     const recomdation = profile.recomdation || {};
     const donation = profile.donation || "";
     const offer = profile.offer || "";
-    const services = profile.services || [];
+    const services = servicesData || [];
 
+    console.log(services)
     return (
         <div className="min-h-screen w-full flex flex-col lg:flex-row">
             <div className="w-full lg:w-[35%] lg:min-h-screen lg:sticky lg:top-0 flex flex-col" style={{ backgroundColor: `${color || '#F4D03F'}` }}>
@@ -188,16 +189,24 @@ const PublicProfile = () => {
                                         <div className="flex items-center justify-between py-2 px-4">
                                             <span className="text-md font-bold tracking-tight text-black">₹ {service?.price}</span>
                                             <button className="h-10 w-10 rounded-full bg-[#2f2f2f] flex items-center justify-center"
-                                          onClick={() => {
-                                            if (service?.category === "corhort") {
-                                              toast("Cohorts coming soon!", { icon: "🚧" });
-                                              navigate("/upcoming", { state: { type: "cohort" } });
-                                            } else if (service?.category === "webinar") {
-                                              toast("Webinars coming soon!", { icon: "🚧" });
-                                              navigate("/upcoming", { state: { type: "webinar" } });
-                                            }
-                                          }}
-                                        >
+                                                onClick={() => {
+                                                    if (service?.category === "corhort") {
+                                                        toast("Cohorts coming soon!", { icon: "🚧" });
+                                                        navigate("/upcoming", { state: { type: "cohort" } });
+                                                    } else if (service?.category === "webinar") {
+                                                        toast("Webinars coming soon!", { icon: "🚧" });
+                                                        navigate("/upcoming", { state: { type: "webinar" } });
+                                                    } else if (service?.category === 'one-to-one') {
+                                                        navigate(`/booking/${service.category}/${service._id}`);
+                                                    }
+                                                    else if (service?.category === 'product') {
+                                                        navigate(`/booking/${service.category}s/${service._id}`);
+                                                    }
+                                                    else if (service.category === 'priorityDm') {
+                                                        navigate("/booking/confirm", {state: {service,user,},});
+                                                    }
+                                                }}
+                                            >
                                                 <ArrowRight className="text-white w-8 h-8" strokeWidth={1.5} />
                                             </button>
                                         </div>

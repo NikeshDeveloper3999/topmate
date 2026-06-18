@@ -21,14 +21,7 @@ const Products = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const handleContinue = () => {
-        navigate("/booking/confirm", {
-            state: {
-                service,
-                user,
-            },
-        });
-    };
+    const handleContinue = () => {navigate("/booking/confirm", {state: {service,user,},});};
 
     const feedbacks = [
         {
@@ -70,16 +63,13 @@ const Products = () => {
 
     if (isLoading) return <SkeletonBookingProduct />;
 
-    const handleSubmit = async () => {
-        console.log("Submit");
-    };
 
     return (
         <div className="min-h-screen bg-[#D65A4A] flex justify-center gap-6 p-6">
 
 
-            <div className="bg-white rounded-3xl w-[520px] ">
-                <div className="bg-[#F7DDDB] p-6 rounded-t-3xl">
+            <div className="bg-white rounded-3xl w-full max-w-[520px]">
+                <div className="bg-[#F7DDDB] p-6 rounded-t-3xl ">
 
                     <div className="flex items-center gap-2 text-sm mb-4 cursor-pointer">
                         <span className="font-medium bg-white px-3 py-1 rounded-full shadow-sm cursor-pointer hover:bg-gray-100 flex gap-2 items-center ">
@@ -98,7 +88,7 @@ const Products = () => {
                     </div>
 
                     <div className="flex justify-between items-center mt-3">
-                        <h1 className="text-xl font-bold leading-snug w-[70%]">
+                       <h1 className="text-lg sm:text-xl font-bold leading-snug w-full">
                             {service?.title}
                         </h1>
                     </div>
@@ -106,7 +96,7 @@ const Products = () => {
 
                 </div>
 
-                <div className="grid grid-cols-2 text-gray-900 border-b-1 border-gray-600  overflow-hidden text-sm ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 text-gray-900 border-b border-gray-600 text-sm">
                     <div className="p-3 border-r text-lg font-medium flex items-center gap-2">
                         <FaBuffer className="text-lg" />Digital  {service.category}
                     </div>
@@ -115,9 +105,7 @@ const Products = () => {
                     </div>
 
                 </div>
-
-                <div className="mt-4 bg-[#efe3d6] p-4 rounded-xl text-sm m-6">
-                    <div className="flex gap-2 mb-2">
+<div className="mt-4 bg-[#efe3d6] p-4 rounded-xl text-sm mx-3 sm:mx-6">                    <div className="flex gap-2 mb-2">
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Helpful</span>
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Engaging</span>
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Supportive</span>
@@ -128,12 +116,12 @@ const Products = () => {
                         inspiring confidence and critical thinking.
                     </p>
 
-                    <p className="text-xs text-gray-400 mt-2">
+                    <p className="text-gray-700 mt-4">
                         AI-generated based on testimonials
                     </p>
                 </div>
-<p className="text-sm text-gray-600 mt-4 leading-relaxed m-6">
-  {service?.longDescription ? (
+<p className="text-sm text-gray-600 mt-4 leading-relaxed px-3 sm:px-6">
+  {service?.longDescription===undefined ? (
     service.longDescription
   ) : (
     <>
@@ -177,12 +165,11 @@ const Products = () => {
 
 
 
-
-                <div className="w-full py-12 bg-[#F8F6F2]">
+<div className="w-full py-8 sm:py-12 bg-[#F8F6F2] mt-6">
 
                     {/* Heading */}
                     <div className="text-center mb-10">
-                        <h1 className="text-3xl font-bold text-gray-900">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                             What People Are Saying
                         </h1>
 
@@ -197,7 +184,7 @@ const Products = () => {
                         {feedbacks.map((item) => (
                             <div
                                 key={item.id}
-                                className="min-w-[320px] max-w-[320px] bg-white rounded-2xl shadow-md border p-6 hover:shadow-xl transition duration-300"
+                              className="min-w-[260px] sm:min-w-[320px] max-w-[320px] bg-white rounded-2xl shadow-md border-1 border-gray-300 p-5 sm:p-6"
                             >
                                 {/* Feedback */}
                                 <p className="text-gray-700 leading-relaxed text-sm">
@@ -230,13 +217,14 @@ const Products = () => {
 
 
 
-                <div className="text-xs text-gray-500 mt-3 flex gap-3 m-6">
+                <div className="text-xs text-gray-500 mt-4 flex gap-3 px-3 pb-6 items-center justify-center">
                     <span className="underline cursor-pointer">Terms</span>
                     <span className="underline cursor-pointer">Privacy</span>
                 </div>
             </div>
             <div className="fixed bottom-0 left-0 flex justify-center py-3 w-full">
-                <div className="w-[520px] x-5 shadow-lg flex p-5 justify-between items-center bg-gray-200">
+
+                <div className="w-full max-w-[520px] mx-5 shadow-lg flex p-5 justify-between items-center bg-gray-200 rounded-3xl">
 
         <span className="font-semibold">
           ₹{service?.price}

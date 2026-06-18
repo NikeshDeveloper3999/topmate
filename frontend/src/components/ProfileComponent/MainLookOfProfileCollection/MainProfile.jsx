@@ -5,9 +5,9 @@ import RightSideView from "./RightSideView";
 const MainProfile = ({ view, onEditHighlight }) => {
     if (view === "mobile") {
         return (
-            <div className="flex justify-center items-start py-10 bg-[#EFECE3] min-h-[91vh] overflow-auto">
-                <div className="w-[375px] rounded-3xl shadow-xl overflow-hidden">
-                    <div className="p-5">
+            <div className="flex justify-center items-start py-10 bg-[#EFECE3] min-h-[91vh] overflow-auto ">
+                <div className="w-[375px] rounded-3xl shadow-xl overflow-hidden ">
+                    <div>
                         <LeftSideVeiw mobile />
                     </div>
                     <div className="p-5 bg-[#EFECE3]">

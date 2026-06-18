@@ -80,7 +80,7 @@ export default function AccountEdit({ isOpen, onClose }) {
                   <img
                     src={profileImage}
                     alt="profile"
-                    className="w-20 h-20 rounded-xl object-cover"
+                    className="w-20 h-20 rounded-xl object-fit"
                   />
                   <div>
                     <p className="font-medium">Profile photo</p>

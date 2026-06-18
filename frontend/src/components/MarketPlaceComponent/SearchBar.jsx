@@ -51,17 +51,9 @@ export default function SearchBar({ onSearch }) {
             onChange={(e) => setValue(e.target.value)}
             onFocus={() => setActive(true)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-            className="w-full text-sm sm:text-lg outline-none font-light bg-transparent"
-          />
+              if (e.key === "Enter") { handleSearch();}}} className="w-full text-sm sm:text-lg outline-none font-light bg-transparent"/>
 
-          <div
-            onClick={handleSearch}
-            className="rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-[#983E01]/10 cursor-pointer"
-          >
+          <div onClick={handleSearch} className="rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-[#983E01]/10 cursor-pointer"  >
             <Search className="text-[#983E01]" size={20} />
           </div>
         </motion.div>

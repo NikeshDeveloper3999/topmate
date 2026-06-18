@@ -19,6 +19,7 @@ const colors = [
   "#e9c58b",
 ];
 
+
 const Profile = () => {
   const dispatch = useDispatch();
   const savedColor = useSelector((state) => state.userProfile.color);
@@ -30,12 +31,33 @@ const Profile = () => {
   const [open5, setOpen5] = useState(false);
   const [editHighlightType, setEditHighlightType] = useState(-1);
   const [selectedColor, setSelectedColor] = useState(savedColor || colors[4]);
-  const [view, setView] = useState("desktop");
-
+  
+  const [view, setView] = useState(
+  window.innerWidth < 500 ? "mobile" : "desktop"
+);
   const handleEditHighlight = (type) => {
     setEditHighlightType(type);
     setOpen3(true);
   };
+
+
+  useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth < 500) {
+      setView("mobile");
+    } else {
+      setView("desktop");
+    }
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -57,9 +79,31 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+
+
+  
+
+useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth < 500) {
+      setView("mobile");
+    }
+  };
+
+  handleResize(); // run on mount
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener("resize", handleResize);
+  };
+}, []);
+
+
   useEffect(() => {
     dispatch(setColor(selectedColor));
   }, [selectedColor]);
+
 
   return (
     <div className="h-screen overflow-auto flex flex-col scroll-smooth">

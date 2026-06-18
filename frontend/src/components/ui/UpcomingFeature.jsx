@@ -190,6 +190,14 @@ const UpcomingFeature = ({ type }) => {
         "We're building an automated DM feature to help you connect with your audience effortlessly. Stay tuned!",
       color: "#4A90D9",
     },
+
+    template: {
+      title: "Templates",
+      subtitle: "Coming Soon",
+      description:
+        "We're building a library of templates to help you get started quickly. Stay tuned for this exciting feature!",
+      color: "#4A90D9",
+    },
   };
 
   const current = config[type] || config.webinar;

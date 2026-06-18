@@ -88,6 +88,8 @@ const ParticleBackground = () => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 z-0 bg-[#0D0D0D]"
+
+      
     />
   );
 };

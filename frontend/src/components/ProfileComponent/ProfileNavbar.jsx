@@ -24,6 +24,8 @@ const ProfileNavbar = ({ onClose, onClose5, onClose2, onClose3, onClose4, view, 
         navigate(`/profile/${userId}`);
     };
 
+
+    
     return (
         <div className="w-full flex items-center justify-between px-6 py-3 bg-white shadow-sm border-b">
 

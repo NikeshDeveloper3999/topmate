@@ -74,7 +74,7 @@ const RightSideView = ({ mobile, onEditHighlight }) => {
             )}
         </AnimatePresence>
     );
-
+// console.log(service)
     return (
         <>
             <div className={mobile ? "" : "h-[91vh] absolute right-0 overflow-auto top-19 w-[53%] bg-[#EFECE3]"}>
@@ -191,16 +191,25 @@ const RightSideView = ({ mobile, onEditHighlight }) => {
                                         <motion.button
                                             whileHover={{ scale: 1.08 }}
                                             whileTap={{ scale: 0.92 }}
-                                            className="h-10 w-10 rounded-full bg-[#2f2f2f] flex items-center justify-center shadow-md"
-                                            onClick={() => {
-                                                if (service?.category === "corhort") {
-                                                    toast("Cohorts coming soon!", { icon: "🚧" });
-                                                    navigate("/upcoming", { state: { type: "cohort" } });
-                                                } else if (service?.category === "webinar") {
-                                                    toast("Webinars coming soon!", { icon: "🚧" });
-                                                    navigate("/upcoming", { state: { type: "webinar" } });
-                                                }
-                                            }}
+                                            className="h-10 w-10 rounded-full bg-[#2f2f2f] flex items-center justify-center shadow-md cursor-pointer"
+                                           onClick={() => {
+                                                    if (service?.category === "corhort") {
+                                                        toast("Cohorts coming soon!", { icon: "🚧" });
+                                                        navigate("/upcoming", { state: { type: "cohort" } });
+                                                    } else if (service?.category === "webinar") {
+                                                        toast("Webinars coming soon!", { icon: "🚧" });
+                                                        navigate("/upcoming", { state: { type: "webinar" } });
+                                                    } else if (service?.category === 'one-to-one') {
+                                                        navigate(`/booking/${service.category}/${service._id}`);
+                                                    }
+                                                    else if (service?.category === 'product') {
+                                                        navigate(`/booking/${service.category}s/${service._id}`);
+                                                    }
+                                                    else if (service.category === 'priorityDm') {
+                                                        navigate("/booking/confirm", {state: {service,user,},});
+                                                    }
+                                                }}
+                                                
                                         >
                                             <ArrowRight className="text-white w-8 h-8" strokeWidth={1.5} />
                                         </motion.button>

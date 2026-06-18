@@ -150,7 +150,11 @@ const handleDelete = (id) => {
       + Add New
     </button>
 
-    <button className="px-4 py-2 rounded-md h-10 bg-gray-100 border-gray-300 border-2 text-black font-semibold hover:bg-gray-200 w-full sm:w-auto">
+    <button className="px-4 py-2 rounded-md h-10 bg-gray-100 border-gray-300 border-2 text-black font-semibold hover:bg-gray-200 w-full sm:w-auto cursor-pointer" 
+      onClick={() => {
+        toast("Templates coming soon!", { icon: "🚧" });
+        navigate("/upcoming", { state: { type: "template" } });
+      }}>
       Templates
     </button>
 
@@ -281,7 +285,7 @@ const handleDelete = (id) => {
             >
               +Add New
             </button>
-            {activeFilter == 'one-to-one' || activeFilter == 'package' ? (<button className="text-black  bg-gray-100 border-2  border-black-300 px-4 py-2  rounded-md font-semibold px-6 py-3 rounded-md mt-4 hover:bg-gray-200">Template</button>) : ("")}
+            {activeFilter == 'one-to-one' || activeFilter == 'package' ? (<button className="text-black  bg-gray-100 border-2  border-black-300 px-4 py-2  rounded-md font-semibold px-6 py-3 rounded-md mt-4 hover:bg-gray-200" onClick={() => { toast("Templates coming soon!", { icon: "🚧" }); navigate("/upcoming", { state: { type: "template" } }); }}>Template</button>) : ("")}
 
           </div>
         </div>

@@ -28,7 +28,7 @@ const DetailsCardArea = ({ detailsOfDeveloper = [], isLoading, isError }) => {
           {isError ? (
             <p className="col-span-full text-center text-red-500 py-20">Error loading data</p>
           ) : detailsOfDeveloper.length === 0 ? (
-            <p className="col-span-full text-center text-gray-500 py-20 text-lg">No user is found in this category</p>
+            <p className="col-span-full text-center text-gray-500 py-20 text-lg">No user found in this category</p>
           ) : (
             detailsOfDeveloper.map((developer) => (
               <div key={developer?._id} className="mt-5  mb-5 w-full max-w-[320px]">  

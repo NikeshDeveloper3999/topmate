@@ -216,7 +216,7 @@ const CreatorHome = () => {
               bg-white px-6  py-3 sm:px-4 rounded-lg 
               transition transform hover:scale-105 duration-300 
               text-sm sm:text-base w-full sm:w-auto
-            ">
+            "  onClick={() => { toast("Loop is  coming soon!", { icon: "🚧" }); navigate("/upcoming", { state: { type: "Loop" } }); }}>
               Join waitlist
             </button>
 
@@ -226,7 +226,7 @@ const CreatorHome = () => {
               transition transform hover:scale-105 duration-300 
               text-sm sm:text-base w-full sm:w-auto
 
-            ">
+            " onClick={() => { window.open('https://www.linkedin.com/in/nikesh-parte-5134972b7/') }}>
               follow for updates
             </button>
           </div>

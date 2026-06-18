@@ -2,7 +2,7 @@ const User = require("../models/user.model.js");
 const UserProfile = require("../models/userProfile.model.js");
 const { verifyToken } = require("../utility/jwToken.js");
 const { cloudinary } = require("../utility/CloudInary.js");
-
+const service = require("../models/userService.model.js");
 const makeProfileDesign = async (req, res) => {
     try {
         const { token } = req.cookies;
@@ -43,30 +43,47 @@ const getProfileDesign = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 }
-
 const getPublicProfile = async (req, res) => {
-    try {
-        const { userId } = req.params;
-        if (!userId) {
-            return res.status(400).json({ status: false, message: "User ID is required" });
-        }
-        const user = await User.findById(userId).select("-password");
-        if (!user) {
-            return res.status(404).json({ status: false, message: "User not found" });
-        }
-        const profileDesign = await UserProfile.findOne({ user: userId });
-        return res.status(200).json({ 
-            status: true, 
-            data: { 
-                user, 
-                profileDesign 
-            } 
-        });
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: "Internal server error" });
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({
+        status: false, message: "User ID is required",});
     }
-}
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        status: false,
+        message: "User not found",
+      });
+    }
+
+    const services = await service.find({ user: user._id });
+
+
+    const profileDesign = await UserProfile.findOne({user: userId,});
+
+    return res.status(200).json({
+      status: true,
+      data: {
+        user,
+        servicesData: services,
+        profileDesign,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      status: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 
 const deleteProfileHighlight = async (req, res) => {
     try {

@@ -74,7 +74,7 @@ const GodLevelNavbar = ({ activeval, onCategoryChange }) => {
 
   return (
 
-    <div className="relative w-full top-16 bg-[#E9E6DE]/90 py-2 sm:py-3 px-3 sm:px-6 flex items-center">
+    <div className=" relative w-full top-16 bg-[#E9E6DE]/90 py-2 sm:py-3  w-full px-3 sm:px-6 flex items-center">
 
       {/* LEFT FADE */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-8 sm:w-12 bg-gradient-to-r from-[#E9E6DE]/70 to-transparent z-10" />

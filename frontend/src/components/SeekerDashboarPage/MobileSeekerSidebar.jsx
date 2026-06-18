@@ -86,7 +86,7 @@ import Logoicon from "../../assets/logo-icon.svg";
           <SidebarLink
             to="/search"
             icon={<FaSearch />}
-            text="Find People"
+            text="Find by Category"
             setOpen={setOpen}
           />
 
