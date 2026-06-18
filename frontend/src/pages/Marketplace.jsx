@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import Navbar from "../components/commonCompo/Navbar";
@@ -14,14 +14,22 @@ const BLOCKED_CATEGORIES = {
 
 const Marketplace = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    const urlSearch = searchParams.get("search");
-    if (urlSearch) setSearchQuery(urlSearch);
-  }, [searchParams]);
+  const selectedCategory = searchParams.get("category") || null;
+  const searchQuery = searchParams.get("search") || "";
+
+  const updateURLParams = (updates) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+    });
+    setSearchParams(params);
+  };
 
   const handleCategoryChange = (category) => {
     if (BLOCKED_CATEGORIES[category]) {
@@ -30,12 +38,11 @@ const Marketplace = () => {
       navigate("/upcoming", { state: { type } });
       return;
     }
-    setSelectedCategory(category);
+    updateURLParams({ category });
   };
 
   const handleSearch = (query) => {
-    setSearchQuery(query);
-    navigate(`/marketplace${query ? `?search=${encodeURIComponent(query)}` : ""}`, { replace: true });
+    updateURLParams({ search: query || null });
   };
 
   const params = {};
@@ -47,9 +54,9 @@ const Marketplace = () => {
   return (
     <>
       <Navbar/>
-      <CategoryNavbar onCategoryChange={handleCategoryChange}/>
+      <CategoryNavbar activeval={selectedCategory} onCategoryChange={handleCategoryChange}/>
       <DetailsCardArea detailsOfDeveloper={data?.data} isLoading={isLoading} isError={isError}/>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} defaultValue={searchQuery} />
     </>
   );
 };

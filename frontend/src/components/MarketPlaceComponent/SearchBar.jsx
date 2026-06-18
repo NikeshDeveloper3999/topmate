@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch, defaultValue = "" }) {
   const [active, setActive] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue);
 
   const handleSearch = () => {
     if (onSearch) onSearch(value);
