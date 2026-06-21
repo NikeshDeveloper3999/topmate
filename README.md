@@ -23,22 +23,37 @@ A full-stack creator storefront platform that enables experts, coaches, and ment
 - File uploads (Multer + Cloudinary)
 - Custom pricing, descriptions, and categorization
 
-### Booking System
+### Booking & Payments (Razorpay)
 - Availability calendar with configurable slot durations (default 30 min)
 - Conflict prevention (unique compound index on creator + date + time)
 - Booking confirmation and cancellation flow
+- **Razorpay payment gateway** — order creation, checkout modal, and signature verification
+- Automatic fee calculation: ₹10 platform fee + 10% commission
 - Zoom meeting auto-creation on confirmation
 - Calendar invite (`.ics`) generation
 - Email notifications via Nodemailer
 
+### Admin Panel
+- **Overview Dashboard** — platform-wide stats (users, experts, services, bookings, revenue)
+- **Withdrawal Management** — review, approve (Razorpay payout), or reject creator withdrawal requests
+- **User Management** — view all users with role indicators, search, and delete users
+- **Service Management** — browse all services with search, filter by category/status, and delete
+- **Booking Management** — full booking ledger with status and payment tracking
+
 ### Dashboards
-- **Creator Dashboard**: manage services, bookings, calendar, profile design, and account settings
+- **Creator Dashboard**: manage services, bookings, calendar, profile design, payouts, and account settings
 - **Seeker Dashboard**: goal-based career coaching, booking history, expert discovery
 
 ### Discovery & Profiles
 - Marketplace with 15+ category browsing
 - Search with MongoDB text indexes
 - Customizable public profile pages (themes, testimonials, badges, social links)
+
+### Creator Payouts
+- Creator earnings tracking with withdrawable balance
+- Razorpay payout integration (IMPS) for bank transfers
+- Admin approval workflow with bank account verification
+- Pending/completed/failed withdrawal status tracking
 
 ### Video Calls
 - Zoom API integration (Server-to-Server OAuth)
@@ -72,6 +87,7 @@ A full-stack creator storefront platform that enables experts, coaches, and ment
 | **MongoDB + Mongoose 9** | Database & ODM |
 | **JWT (jsonwebtoken)** | Token-based auth |
 | **bcrypt** | Password hashing |
+| **Razorpay** | Payment gateway & payout processing (IMPS) |
 | **Nodemailer** | Email (OTP, booking notifications) |
 | **Multer** | File upload handling |
 | **Cloudinary** | Cloud media storage |
@@ -89,20 +105,26 @@ topmate-1-1/
 ├── backend/
 │   ├── src/
 │   │   ├── controllers/         # Route handlers
+│   │   │   ├── admin.controller.js
 │   │   │   ├── Booking.controler.js
 │   │   │   ├── user.controler.js
 │   │   │   ├── userProfileDesign.controller.js
-│   │   │   └── userServices.controller.js
+│   │   │   ├── userServices.controller.js
+│   │   │   └── Withdraw.controller.js
 │   │   ├── models/              # Mongoose schemas
 │   │   │   ├── Booking.model.js
 │   │   │   ├── user.model.js
 │   │   │   ├── userProfile.model.js
-│   │   │   └── userService.model.js
+│   │   │   ├── userService.model.js
+│   │   │   └── withdrawal.model.js
 │   │   ├── routes/              # Express route definitions
+│   │   │   ├── admin.routes.js
 │   │   │   ├── Booking.routes.js
 │   │   │   ├── Service.route.js
-│   │   │   └── user.route.js
+│   │   │   ├── user.route.js
+│   │   │   └── Withdraw.routes.js
 │   │   ├── Middleware/
+│   │   │   ├── adminAuth.js
 │   │   │   └── jsonWebTokenCheck.js
 │   │   ├── Services/
 │   │   │   └── sendBookingEmails.js
@@ -137,8 +159,17 @@ topmate-1-1/
 │   │   │   └── ui/              # Generic UI primitives
 │   │   ├── hooks/               # 23 custom React Query hooks
 │   │   ├── pages/               # Route-level page components (lazy-loaded)
+│   │   │   └── AdminDashboard.jsx  # Admin panel with tabs
 │   │   ├── redux/               # Redux slices
 │   │   ├── services/            # Axios instance & API service functions
+│   │   │   ├── adminService/
+│   │   │   │   ├── adminApi.js  # Users, services, bookings, stats
+│   │   │   │   └── adminWithdrawalsApi.js
+│   │   │   ├── booking-services/
+│   │   │   │   ├── createBookingOrder.js
+│   │   │   │   └── verifyBookingPayment.js
+│   │   │   ├── Withdrawl-service/
+│   │   │   └── ...
 │   │   └── utility/
 │   │       ├── axios.js         # Configured Axios instance
 │   │       └── fireBase.js      # Firebase config
@@ -199,6 +230,9 @@ npm install
 | `CLOUDINARY_NAME` | Cloudinary cloud name |
 | `CLOUDINARY_API_KEY` | Cloudinary API key |
 | `CLOUDINARY_SECRET_KEY` | Cloudinary API secret |
+| `RAZORPAY_KEY_ID` | Razorpay API key ID |
+| `RAZORPAY_SECRET_KEY` | Razorpay API secret key |
+| `RAZORPAY_MASTER_ACCOUNT` | Razorpay master account number (for payouts) |
 
 **Frontend** — copy `frontend/.env.example` to `frontend/.env` and fill in:
 
@@ -211,6 +245,7 @@ npm install
 | `VITE_FIREBASE_STORAGE_BUCKET` | Firebase storage bucket |
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | Firebase sender ID |
 | `VITE_FIREBASE_APP_ID` | Firebase app ID |
+| `VITE_RAZORPAY_KEY_ID` | Razorpay API key ID (used by checkout modal) |
 
 ### 3. Run Development Server
 
@@ -265,10 +300,35 @@ npm run dev       # Vite dev server
 | Method | Endpoint | Description | Auth |
 |---|---|---|---|
 | POST | `/create` | Create a booking | ✅ |
+| POST | `/create/dm` | Create a Priority DM booking | ✅ |
 | GET | `/seeker/:seekerId` | Get seeker's bookings | ✅ |
 | GET | `/creator/:creatorId` | Get creator's bookings | ✅ |
 | PUT | `/cancel/:bookingId` | Cancel a booking | ✅ |
 | PUT | `/confirm/:bookingId` | Confirm a booking | ✅ |
+| PUT | `/complete/:bookingId` | Mark booking as completed | ✅ |
+| POST | `/razorpay` | Create Razorpay order for booking | ✅ |
+| POST | `/verifyRazorpay` | Verify Razorpay payment signature | ✅ |
+| GET | `/seller/earnings` | Get seller earnings stats | ✅ |
+
+### Withdrawal Routes — `/api`
+
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/seller/withdraw` | Request withdrawal (creator) | ✅ |
+| GET | `/seller/withdrawals` | Get own withdrawals (creator) | ✅ |
+| GET | `/admin/withdrawals` | List all withdrawals (admin) | ✅ |
+| PUT | `/admin/withdrawals/:id` | Approve/reject withdrawal (admin) | ✅ |
+
+### Admin Routes — `/api/admin` (all require admin role)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/stats` | Platform-wide statistics |
+| GET | `/users` | List all users |
+| DELETE | `/users/:userId` | Delete a user |
+| GET | `/services` | List all services |
+| DELETE | `/services/:serviceId` | Delete a service |
+| GET | `/bookings` | List all bookings |
 
 ---
 
@@ -304,8 +364,10 @@ npm run dev       # Vite dev server
 | Notice period | `60` minutes |
 | JWT cookie | httpOnly, secure |
 | Service categories | `one-to-one`, `priorityDm`, `workshop`, `product`, `package` |
-| Booking statuses | `pending`, `confirmed`, `cancelled` |
-| User roles | `user` (seeker), `expert` (creator) |
+| Booking statuses | `pending`, `confirmed`, `cancelled`, `completed` |
+| User roles | `user` (seeker), `expert` (creator), `admin` |
+| Withdrawal statuses | `pending`, `processing`, `completed`, `failed` |
+| Platform fee | ₹10 + 10% commission on each booking |
 | CORS origin | `http://localhost:5175` |
 
 ---

@@ -7,6 +7,7 @@ const serviceRouter = require("./routes/Service.route.js");
 const bookingRoutes = require("./routes/Booking.routes.js");
 const analyticsDetails = require("./routes/analyticsDetails.routes.js");
 const withdrawRouter = require("./routes/Withdraw.routes.js");
+const adminRouter = require("./routes/admin.routes.js");
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/api/service",serviceRouter);
 app.use("/api/booking",bookingRoutes);
 app.use("/api/dashboardAnalytics", analyticsDetails )
 app.use("/api", withdrawRouter);
+app.use("/api/admin", adminRouter);
 
 
 
