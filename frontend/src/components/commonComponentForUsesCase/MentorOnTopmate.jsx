@@ -132,99 +132,99 @@ export default function PMMentorSection({ mentors, title, description, colorThem
 
     const color = colors[colorTheme];
 
-    return (
-        <section
-            ref={containerRef}
-            className="relative h-[320vh] bg-black text-white"
-        >
-            <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
+return (
+  <section ref={containerRef} className="relative h-[260vh] sm:h-[280vh] lg:h-[320vh] bg-black text-white">
+    <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4">
 
-                <div className="text-center mb-16">
-                    <div className="inline-block px-4 py-1 rounded-full bg-neutral-800 text-sm mb-4">
-                        Top 25 in '25 Winner
-                    </div>
+      {/* Heading */}
+      <div className="text-center mb-10 sm:mb-12 lg:mb-16 max-w-3xl">
+        <div className="inline-block px-3 py-1 rounded-full bg-neutral-800 text-xs sm:text-sm mb-4">
+          Top 25 in '25 Winner
+        </div>
 
-                    <h2 className="text-4xl md:text-5xl font-semibold">
-                        {title}
-                    </h2>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
+          {title}
+        </h2>
 
-                    <p className="text-neutral-400 mt-3">
-                        {description}
-                    </p>
+        <p className="text-neutral-400 mt-3 text-sm sm:text-base lg:text-lg">
+          {description}
+        </p>
+      </div>
+
+      {/* Cards Stack */}
+      <div className="relative w-[260px] h-[360px] sm:w-[300px] sm:h-[400px] md:w-[320px] md:h-[420px]">
+
+        {mentors.map((mentor, i) => {
+
+          const step = 0.22;
+          const reverseIndex = mentors.length - 1 - i;
+          const start = reverseIndex * step * 1.5;
+
+          const rotate = useTransform(
+            scrollYProgress,
+            [start, start + 0.15],
+            [initialRotations[i], 0]
+          );
+
+          const y =
+            i === 0
+              ? 0
+              : useTransform(
+                  scrollYProgress,
+                  [start, start + 0.35],
+                  [0, window.innerWidth < 640 ? -500 : -700]
+                );
+
+          return (
+            <motion.div key={i} style={{ rotate, y }} className="absolute inset-0">
+
+              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-neutral-900">
+
+                <img
+                  src={mentor.img}
+                  alt={mentor.name}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Badge */}
+                <div className={`absolute top-4 right-4 flex items-center gap-1 ${color.bg} ${color.text} text-[10px] sm:text-xs px-3 py-1 rounded-full`}>
+                  <Star fill="#FFD700" stroke="#FFD700" size={14} />
+                  {mentor.badge}
                 </div>
 
-                <div className="relative w-[320px] h-[420px]">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
 
-                    {mentors.map((mentor, i) => {
+                {/* Content */}
+                <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6">
 
-                        const step = 0.22;
+                  <h3 className="text-lg sm:text-xl font-semibold">
+                    {mentor.name}
+                  </h3>
 
-                        const reverseIndex = mentors.length - 1 - i;
-                        const start = reverseIndex * step * 1.5;
+                  <p className="text-xs sm:text-sm text-neutral-300">
+                    {mentor.handle}
+                  </p>
 
-                        const rotate = useTransform(
-                            scrollYProgress,
-                            [start, start + 0.15],
-                            [initialRotations[i], 0]
-                        );
+                  <p className="text-xs sm:text-sm text-neutral-400 mt-2 line-clamp-3">
+                    {mentor.desc}
+                  </p>
 
-                        // card moves upward
-                        const y =
-                            i === 0
-                                ? 0
-                                : useTransform(
-                                    scrollYProgress,
-                                    [start, start + 0.35],
-                                    [0, -700]
-                                );
-
-                        return (
-                            <motion.div
-                                key={i}
-                                style={{ rotate, y }}
-                                className="absolute inset-0"
-                            >
-                                <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-neutral-900">
-
-                                    <img
-                                        src={mentor.img}
-                                        className="w-full h-full object-cover"
-                                    />
-
-                                    {/* Badge */}
-                                    <div className={`absolute flex gap-1 top-5 right-5 ${color.bg} ${color.text} text-xs px-3 py-1 rounded-full`}>
-                                        <Star fill="#FFD700" stroke="#FFD700" size={16} />
-                                        {mentor.badge}
-                                    </div>
-
-                                    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
-
-                                    <div className="absolute bottom-6 left-6 right-6">
-                                        <h3 className="text-xl font-semibold">
-                                            {mentor.name}
-                                        </h3>
-
-                                        <p className="text-sm text-neutral-300">
-                                            {mentor.handle}
-                                        </p>
-
-                                        <p className="text-sm text-neutral-400 mt-2">
-                                            {mentor.desc}
-                                        </p>
-
-                                        <button className={`flex items-center gap-2 ${color.text2} text-sm mt-3`}>
-                                            View Profile
-                                            <ExternalLink size={16} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                  <button className={`flex items-center gap-2 ${color.text2} text-xs sm:text-sm mt-3`}>
+                    View Profile
+                    <ExternalLink size={14} />
+                  </button>
 
                 </div>
 
-            </div>
-        </section>
-    );
+              </div>
+
+            </motion.div>
+          );
+        })}
+
+      </div>
+
+    </div>
+  </section>
+);
 }

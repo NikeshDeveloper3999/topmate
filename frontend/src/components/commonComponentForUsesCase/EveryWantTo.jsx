@@ -167,68 +167,80 @@ export default function EveryWantTo({
   const color = colors[colorTheme];
 
   
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
+ return (
+  <section className="py-16 sm:py-20 lg:py-28 bg-gray-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: .6 }}
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-12 lg:mb-16 leading-tight"
+      >
+        {mainTitle}
+        <span className={`block sm:inline sm:pl-2 ${color.text2}`}>
+          {title}
+        </span>
+      </motion.h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12">
+
+        {/* Card 1 */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-5xl font-bold mb-12"
+          transition={{ delay: .2 }}
+          className="flex flex-col items-center gap-4 p-6"
         >
-          {mainTitle} <span className={`pl-2 ${color.text2}`}>{title}</span>
-        </motion.h2>
+          <Users className={`w-8 h-8 sm:w-10 sm:h-10 ${color.text2}`} />
 
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {/* Card 1 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-center space-y-4"
-          >
-            <Users className={`w-8 h-8 ${color.text2}`} />
-            <Counter target={firstCardTarget} suffix="K+" color={color} />
-            <p className="text-gray-500 text-sm tracking-wide">
-              {firstCardDesc}
-            </p>
-          </motion.div>
+          <Counter target={firstCardTarget} suffix="K+" color={color} />
 
-          {/* Card 2 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col items-center space-y-4"
-          >
-            <IndianRupee className={`w-8 h-8 ${color.text2}`} />
-            <div className="flex items-end gap-1">
-              <Counter target={secondCardTarget} suffix="K" color={color} />
-              <span className={`text-4xl font-bold ${color.text2}`}>-</span>
-              <Counter target={second2CardTarget} suffix="K" color={color} />
-            </div>
-            <p className="text-gray-500 text-sm tracking-wide">
-              {secondCardDesc}
-            </p>
-          </motion.div>
+          <p className="text-gray-500 text-sm sm:text-base tracking-wide max-w-xs">
+            {firstCardDesc}
+          </p>
+        </motion.div>
 
-          {/* Card 3 */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex flex-col items-center space-y-4"
-          >
-            <Trophy className={`w-8 h-8 ${color.text2}`} />
-            <div className={`text-4xl md:text-5xl font-bold ${color.text2}`}>
-              #{thirdCardTarget}
-            </div>
-            <p className="text-gray-500 text-sm tracking-wide">
-              {thirdCardDesc}
-            </p>
-          </motion.div>
-        </div>
+        {/* Card 2 */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: .4 }}
+          className="flex flex-col items-center gap-4 p-6"
+        >
+          <IndianRupee className={`w-8 h-8 sm:w-10 sm:h-10 ${color.text2}`} />
+
+          <div className="flex items-end gap-1 flex-wrap justify-center">
+            <Counter target={secondCardTarget} suffix="K" color={color} />
+            <span className={`text-3xl sm:text-4xl md:text-5xl font-bold ${color.text2}`}>-</span>
+            <Counter target={second2CardTarget} suffix="K" color={color} />
+          </div>
+
+          <p className="text-gray-500 text-sm sm:text-base tracking-wide max-w-xs">
+            {secondCardDesc}
+          </p>
+        </motion.div>
+
+        {/* Card 3 */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: .6 }}
+          className="flex flex-col items-center gap-4 p-6"
+        >
+          <Trophy className={`w-8 h-8 sm:w-10 sm:h-10 ${color.text2}`} />
+
+          <div className={`text-4xl sm:text-5xl md:text-6xl font-bold ${color.text2}`}>
+            #{thirdCardTarget}
+          </div>
+
+          <p className="text-gray-500 text-sm sm:text-base tracking-wide max-w-xs">
+            {thirdCardDesc}
+          </p>
+        </motion.div>
+
       </div>
-    </section>
-  );
-}
+
+    </div>
+  </section>
+);} 

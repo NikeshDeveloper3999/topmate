@@ -98,32 +98,36 @@ const Meeting = () => {
         },
     ];
 
-    useEffect(() => {
-        window.document.title = "1:1 Meeting Platform for Experts,Coaches & Consultants | Topmate"
-    }, [])
+    useEffect(() => { window.document.title = "1:1 Meeting Platform for Experts,Coaches & Consultants | Topmate"}, [])
     return (
-        <>
-            <Navbar theam="black" />
-            <TopOfMeeting
-                theam="dark"
-                badge="1:1 Meetings"
-                title="Turn 1:1 Calls Into a Revenue Stream"
-                description="Set your rate, share one link, and get paid. Free Zoom Pro, calendar sync, and instant payouts — no subscription."
-                button1="Start Getting Paid"
-                button2="See How It Works"
-            />
-            <Calendar />
-            <FeaturesGrid />
-            <WorkGrid />
-            <SpecificExpertise />
-            <WordClassExperience />
-            <CreatorPaidSessionsMeeting />
-            <CommonQnAMeeting faqs={faqs} title="Common questions </br> about Meetings" />
-            <SubcriptionRecommed />
-            <ServicesSection items={items} />
-            <Footer />    
-        </>
-    )
+  <div className="overflow-x-hidden w-full">
+    <Navbar theam="black" />
+
+    <TopOfMeeting
+      theam="dark"
+      badge="1:1 Meetings"
+      title="Turn 1:1 Calls Into a Revenue Stream"
+      description="Set your rate, share one link, and get paid. Free Zoom Pro, calendar sync, and instant payouts — no subscription."
+      button1="Start Getting Paid"
+      button2="See How It Works"
+    />
+
+    <Calendar />
+    <FeaturesGrid />
+    <WorkGrid />
+    <SpecificExpertise />
+    <WordClassExperience />
+    <CreatorPaidSessionsMeeting />
+    <CommonQnAMeeting
+      faqs={faqs}
+      title="Common questions </br> about Meetings"
+    />
+    <SubcriptionRecommed />
+    <ServicesSection items={items} />
+    <Footer />
+  </div>
+);
+
 }
 
 export default Meeting

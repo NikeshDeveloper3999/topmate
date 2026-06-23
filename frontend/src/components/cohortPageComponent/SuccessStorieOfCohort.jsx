@@ -33,94 +33,86 @@ const SuccessStorieOfCohort = () => {
   ];
 
   return (
-    <section className="w-full min-h-screen bg-black text-white flex flex-col items-center py-32">
+  <section className="w-full min-h-screen bg-black text-white py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
 
-      {/* BADGE */}
-      <div className="px-5 py-2 rounded-full border border-gray-700 text-sm text-gray-400 mb-6">
+    {/* Badge */}
+    <div className="flex justify-center mb-6">
+      <div className="px-5 py-2 rounded-full border border-gray-700 text-xs sm:text-sm text-gray-400">
         SUCCESS STORIES
       </div>
+    </div>
 
-      {/* TITLE */}
-      <h1 className="text-6xl font-bold text-center leading-tight mb-20">
-        <span className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
-          From ₹999 webinars
-        </span>
+    {/* Title */}
+    <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+      <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+        <span className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">From ₹999 webinars</span>
         <br />
-        <span className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
-          to ₹7.2L cohorts
-        </span>
+        <span className="bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">to ₹7.2L cohorts</span>
       </h1>
+    </div>
 
-      {/* TESTIMONIAL CARDS */}
-      <div className="grid grid-cols-3 gap-10 w-[80%] mb-24">
+    {/* Testimonials */}
+    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16 lg:mb-24">
 
-        {testimonials.map((t, i) => (
-          <motion.div
-            key={i}
-            initial={{ y: 80, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: i * 0.2 }}
-            viewport={{ once: false }}
-            className="bg-[#0b0b0b] border border-gray-800 rounded-3xl p-8 flex flex-col justify-between"
-          >
+      {testimonials.map((item, index) => (
+        <motion.div
+          key={index}
+          initial={{ y: 80, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: .6, delay: index * .15 }}
+          viewport={{ once: true }}
+          className="bg-[#0b0b0b] border border-gray-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+        >
 
-            <p className="text-gray-400 leading-relaxed text-lg">
-              “{t.text}”
-            </p>
+          <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+            “{item.text}”
+          </p>
 
-            <div className="border-t border-gray-800 mt-8 pt-6 flex items-center gap-4">
+          <div className="border-t border-gray-800 mt-8 pt-6 flex items-center gap-4">
+            <img src={item.img} alt={item.name} className="h-10 w-10 rounded-full object-cover" />
 
-              <img
-                src={t.img}
-                alt={t.name}
-                className="h-10 w-10 rounded-full"
-              />
+            <div>
+              <p className="text-white font-medium">{item.name}</p>
+              <p className="text-gray-500 text-sm">{item.role}</p>
+            </div>
+          </div>
 
-              <div>
-                <p className="text-white font-medium">{t.name}</p>
-                <p className="text-gray-500 text-sm">{t.role}</p>
-              </div>
+        </motion.div>
+      ))}
 
+    </div>
+
+    {/* Stats */}
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      transition={{ duration: .8 }}
+      viewport={{ once: true }}
+      className="max-w-6xl mx-auto bg-[#0b0b0b] border border-gray-800 rounded-3xl sm:rounded-[40px] lg:rounded-[50px] py-8 sm:py-10 lg:py-12"
+    >
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+
+        {stats.map((item, index) => (
+          <div key={index} className="flex flex-col items-center text-center">
+
+            <div className="flex items-center gap-2 text-3xl sm:text-4xl lg:text-5xl font-bold">
+              {item.value}
+              {item.icon && <Star size={28} className="text-white fill-white sm:w-8 sm:h-8 lg:w-9 lg:h-9" />}
             </div>
 
-          </motion.div>
-        ))}
-
-      </div>
-
-      {/* STATS CARD */}
-
-      <motion.div
-        initial={{ y: 100, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="w-[65%] bg-[#0b0b0b] border border-gray-800 rounded-[50px] py-12 flex justify-around"
-      >
-
-        {stats.map((s, i) => (
-          <div key={i} className="flex flex-col items-center">
-
-            <div className="flex items-center gap-2 text-5xl font-bold">
-
-              {s.value}
-
-              {s.icon && (
-                <Star size={36} className="text-white fill-white" />
-              )}
-
-            </div>
-
-            <p className="text-gray-500 text-sm mt-2 tracking-widest">
-              {s.label}
+            <p className="text-gray-500 text-xs sm:text-sm mt-2 tracking-widest">
+              {item.label}
             </p>
 
           </div>
         ))}
 
-      </motion.div>
+      </div>
 
-    </section>
-  );
-};
+    </motion.div>
 
+  </section>
+);
+}
 export default SuccessStorieOfCohort;

@@ -105,7 +105,8 @@ const Products = () => {
                     </div>
 
                 </div>
-<div className="mt-4 bg-[#efe3d6] p-4 rounded-xl text-sm mx-3 sm:mx-6">                    <div className="flex gap-2 mb-2">
+<div className="mt-4 bg-[#efe3d6] p-4 rounded-xl text-sm mx-3 sm:mx-6">           
+             <div className="flex gap-2 mb-2">
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Helpful</span>
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Engaging</span>
                         <span className="bg-white px-2 py-1 rounded-full text-xs">Supportive</span>

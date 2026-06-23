@@ -65,7 +65,8 @@ const PriorityDm = () => {
         },
     ]
     return (
-        <>
+        <div className="overflow-x-hidden w-full">
+
             <Navbar />
             <TopOccurSectionOfPriorityDm />
             <CreatorsChargeAdvice />
@@ -76,7 +77,7 @@ const PriorityDm = () => {
             <CommonQnAMeeting faqs={faqs} title="Common questions about Priority DM" theme="dark" />
             <RevenueInPriorityDm />
             <Footer />
-        </>
+        </div>
     );
 };
 

@@ -29,92 +29,64 @@ const CohortStructures = () => {
   ];
 
   return (
-    <section className="w-full min-h-screen bg-[#F3F3F1] flex flex-col items-center py-32">
+<section className="w-full min-h-screen bg-[#F3F3F1] py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
 
-      {/* HEADER */}
+  {/* Header */}
+  <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16 lg:mb-20">
+    <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-black">High-converting cohort structures</h1>
+    <p className="text-gray-500 text-base sm:text-lg mt-4 max-w-2xl mx-auto">See how top experts structure their multi-week programs for maximum impact.</p>
+  </div>
 
-      <div className="flex flex-col items-center gap-4 mb-20 text-center">
+  {/* Cards */}
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
 
-        <h1 className="text-6xl font-bold text-black">
-          High-converting cohort structures
-        </h1>
+    {cohortExamples.map((item, i) => (
 
-        <p className="text-gray-500 text-lg max-w-2xl">
-          See how top experts structure their multi-week programs
-          for maximum impact.
-        </p>
+      <motion.div
+        key={i}
+        initial={{ y: 80, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{ duration: .6, delay: i * .15 }}
+        viewport={{ once: true }}
+        className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col justify-between"
+      >
 
-      </div>
+        <div>
 
-      {/* CARDS */}
+          <div className="mb-5">
+            <span className="bg-gray-100 text-gray-500 text-xs sm:text-sm px-4 py-2 rounded-full">{item.example}</span>
+          </div>
 
-      <div className="grid grid-cols-3 gap-10 w-[80%]">
+          <h3 className="text-xl sm:text-2xl font-semibold text-black mb-6 sm:mb-8">{item.title}</h3>
 
-        {cohortExamples.map((item, i) => (
+          <div className="flex flex-col gap-4 text-gray-600">
 
-          <motion.div
-            key={i}
-            initial={{ y: 80, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: i * 0.2 }}
-            viewport={{ once: false }}
-            className="bg-white border border-gray-200 rounded-3xl p-10 flex flex-col justify-between"
-          >
-
-            {/* TOP */}
-
-            <div>
-
-              <div className="mb-6">
-                <span className="bg-gray-100 text-gray-500 text-sm px-4 py-2 rounded-full">
-                  {item.example}
-                </span>
-              </div>
-
-              <h3 className="text-2xl font-semibold text-black mb-8">
-                {item.title}
-              </h3>
-
-              {/* DETAILS */}
-
-              <div className="flex flex-col gap-5 text-gray-600">
-
-                <div className="flex items-center gap-3">
-                  <Tag size={18} />
-                  <p>{item.price}</p>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Calendar size={18} />
-                  <p>{item.sessions}</p>
-                </div>
-
-              </div>
-
+            <div className="flex items-center gap-3">
+              <Tag size={18} />
+              <p className="text-sm sm:text-base">{item.price}</p>
             </div>
 
-            {/* BOTTOM */}
-
-            <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-center">
-
-              <p className="text-gray-400 tracking-wider text-sm">
-                REVENUE POTENTIAL:
-              </p>
-
-              <p className="text-green-600 font-semibold">
-                {item.revenue}
-              </p>
-
+            <div className="flex items-center gap-3">
+              <Calendar size={18} />
+              <p className="text-sm sm:text-base">{item.sessions}</p>
             </div>
 
-          </motion.div>
+          </div>
 
-        ))}
+        </div>
 
-      </div>
+        <div className="mt-8 sm:mt-12 pt-5 sm:pt-6 border-t border-gray-200 flex justify-between items-center gap-3">
+          <p className="text-gray-400 tracking-wider text-xs sm:text-sm">REVENUE POTENTIAL:</p>
+          <p className="text-green-600 font-semibold text-sm sm:text-base text-right">{item.revenue}</p>
+        </div>
 
-    </section>
-  );
+      </motion.div>
+
+    ))}
+
+  </div>
+
+</section>)
 };
 
 export default CohortStructures;

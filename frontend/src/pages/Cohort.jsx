@@ -66,7 +66,7 @@ const Cohort = () => {
     ];
 
     return (
-        <>
+        <div className="overflow-x-hidden w-full">
             <Navbar />
             <TopOfCohortFeatures
                 badge="Cohort Programs"
@@ -83,7 +83,7 @@ const Cohort = () => {
             <SuccessStorieOfCohort />
             <CommonQnAMeeting theme="light" title="Common questions about Cohorts" faqs={cohortFaqs} />
             <Footer />
-        </>
+        </div>
     );
 };
 

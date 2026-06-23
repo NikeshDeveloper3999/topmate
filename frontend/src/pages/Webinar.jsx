@@ -92,7 +92,8 @@ const Webniars = () => {
     }, [])
 
     return (
-        <>
+
+            <div className="overflow-x-hidden w-full">
             <Navbar />
             <TopOfWebinars
                 badge="Webinars & Workshops"
@@ -111,7 +112,7 @@ const Webniars = () => {
             <HostYourFirstWebinars />
             <ServicesSection items={items} />
             <Footer />
-        </>
+        </div>
     )
 }
 

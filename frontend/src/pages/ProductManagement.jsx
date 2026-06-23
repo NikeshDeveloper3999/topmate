@@ -149,8 +149,8 @@ const steps = [
 ];
 
   return (
-    <>
-      <Navbar theam='black' />
+    <div className="overflow-x-hidden w-full">
+      <Navbar theam='black'/>
       <TopOfUseCases
         theam="dark"
         theamSet="blue"
@@ -172,7 +172,7 @@ const steps = [
       <CommonQnAMeeting theme="light" faqs={faqs} />
       <ManagementBussinessToday colorTheme="blue" button1="Start Product Management Mentoring Free" button2="See Revenue Examples" title="Start your Product Management" title2="business today" description="Monetize your Product Management expertise. Teach PM, run PM bootcamps, offer consulting. Product managers earn ₹50K-5L/month on Topmate." />
       <Footer />
-    </>
+    </div>
   )
 }
 

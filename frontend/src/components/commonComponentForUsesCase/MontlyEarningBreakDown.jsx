@@ -182,68 +182,61 @@ export default function MonthlyEarningBreakDown({ colorTheme = "blue" }) {
   const color = colors[colorTheme];
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full bg-[#f4f4f4] py-24 px-8 flex justify-center"
-    >
-      <div className="max-w-6xl w-full grid grid-cols-2 gap-12 items-center">
-        {/* LEFT */}
-        <div>
-          <div className="flex items-center gap-2 mb-8">
-            <div className="w-3 h-3 bg-blue-500 rounded-full" />
-            <p className="tracking-widest text-sm font-semibold text-gray-700">
-              MONTHLY EARNINGS BREAKDOWN
-            </p>
-          </div>
+  <section ref={sectionRef} className="w-full bg-[#f4f4f4] py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 flex justify-center">
+    <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          <div className="space-y-6">
-            {items.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.15 }}
-                className="flex justify-between items-center bg-white rounded-2xl px-8 py-6 shadow-sm border border-gray-200"
-              >
-                <p className="text-gray-600">{item.title}</p>
-
-                <p className="font-bold text-xl text-black">
-                  ₹
-                  <CountUp
-                    target={item.value}
-                    suffix={item.suffix}
-                  />
-                </p>
-              </motion.div>
-            ))}
-          </div>
+      {/* Left */}
+      <div>
+        <div className="flex items-center gap-2 mb-8">
+          <div className="w-3 h-3 bg-blue-500 rounded-full" />
+          <p className="tracking-widest text-xs sm:text-sm font-semibold text-gray-700">
+            MONTHLY EARNINGS BREAKDOWN
+          </p>
         </div>
 
-        {/* RIGHT CARD */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.3 }}
-          className="bg-white rounded-[30px] p-14 shadow-sm border border-gray-200 text-center"
-        >
-          <p className="tracking-widest text-sm text-gray-500 mb-6">
-            PROJECTED REVENUE
-          </p>
+        <div className="space-y-4 sm:space-y-5">
+          {items.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * .15 }}
+              className="flex justify-between items-center bg-white rounded-2xl px-5 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 shadow-sm border border-gray-200"
+            >
+              <p className="text-sm sm:text-base text-gray-600">{item.title}</p>
 
-          <h2 className="text-6xl font-bold text-blue-500 mb-6">
-            ₹
-            <CountUp target={2.4} suffix="L/month" />
-          </h2>
-
-          <button className="bg-blue-100 text-blue-600 px-6 py-3 rounded-full font-medium mb-6">
-            Growing Tier Snapshot
-          </button>
-
-          <p className="text-gray-400 text-sm">
-            Based on top-performing creators in this category
-          </p>
-        </motion.div>
+              <p className="font-bold text-lg sm:text-xl lg:text-2xl text-black">
+                ₹<CountUp target={item.value} suffix={item.suffix} />
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </section>
-  );
-}
+
+      {/* Right Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: .95 }}
+        animate={inView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ delay: .3 }}
+        className="bg-white rounded-[24px] sm:rounded-[30px] p-8 sm:p-10 lg:p-14 shadow-sm border border-gray-200 text-center"
+      >
+        <p className="tracking-widest text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">
+          PROJECTED REVENUE
+        </p>
+
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-500 mb-5 sm:mb-6">
+          ₹<CountUp target={2.4} suffix="L/month" />
+        </h2>
+
+        <button className="bg-blue-100 text-blue-600 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium mb-5 sm:mb-6 text-sm sm:text-base">
+          Growing Tier Snapshot
+        </button>
+
+        <p className="text-gray-400 text-xs sm:text-sm max-w-sm mx-auto">
+          Based on top-performing creators in this category
+        </p>
+      </motion.div>
+
+    </div>
+  </section>
+);}
