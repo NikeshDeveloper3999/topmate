@@ -305,7 +305,7 @@ const getMarketplaceData = async (req, res) => {
       filter.category = category;
     }
 
-    if (search) {
+    if (search && search.toLowerCase() !== "all") {
       filter.$or = [
         { title: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },

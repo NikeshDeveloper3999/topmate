@@ -16,18 +16,17 @@ const GodLevelNavbar = ({ activeval, onCategoryChange }) => {
   const containerRef = useRef(null);
   const itemRefs = useRef([]);
 
-  // FIX 4: Sync activeIndex with activeval prop on mount
-  const initialIndex = activeval
-    ? CATEGORIES.findIndex((c) => c.value === activeval)
-    : 0;
-
   const [scrollX, setScrollX] = useState(0);
   const [maxScroll, setMaxScroll] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(
-    initialIndex >= 0 ? initialIndex : 0
-  );
-  // FIX 2: Default to first category instead of -1
+  const [activeIndex, setActiveIndex] = useState(-1);
   const [indicator, setIndicator] = useState({ width: 0, left: 0 });
+
+  useEffect(() => {
+    const idx = activeval
+      ? CATEGORIES.findIndex((c) => c.value === activeval)
+      : -1;
+    setActiveIndex(idx >= 0 ? idx : -1);
+  }, [activeval]);
 
   useEffect(() => {
     const updateScroll = () => {
@@ -45,6 +44,10 @@ const GodLevelNavbar = ({ activeval, onCategoryChange }) => {
 
 
   const updateIndicator = (index) => {
+    if (index < 0) {
+      setIndicator({ width: 0, left: 0 });
+      return;
+    }
     const el = itemRefs.current[index];
     if (!el || !containerRef.current) return;
     const containerRect = containerRef.current.getBoundingClientRect();
@@ -113,7 +116,6 @@ const GodLevelNavbar = ({ activeval, onCategoryChange }) => {
               key={item.value}
               ref={(el) => (itemRefs.current[i] = el)}
               onClick={() => {
-                setActiveIndex(i);
                 if (onCategoryChange) onCategoryChange(item.value);
 
                 const el = itemRefs.current[i];
