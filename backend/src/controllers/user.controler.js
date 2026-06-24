@@ -15,7 +15,9 @@ const getUser = async (req, res) => {
       return res.status(200).json({ status: false, message: "Login first" });
     }
     const decodedToken = verifyToken(token);
-    const user = await User.findById(decodedToken.id);
+    const user = await User.findById(decodedToken.id)
+      .select("firstName lastName userName email userImageUrl whatsAppNumber role country currency expertise availability timezone service graduationYear joinDate")
+      .lean();
     if (!user) {
       return res.status(200).json({ status: false, message: "User not found" });
     }

@@ -76,6 +76,27 @@ const userDetailsSlice = createSlice({
         setUserId: (state, action) => {
             state.userId = action.payload;
         },
+        setUserDetails: (state, action) => {
+            const user = action.payload || {};
+            state.userId = user._id || null;
+            state.firstName = user.firstName || "";
+            state.lastName = user.lastName || "";
+            state.userName = user.userName || "";
+            state.email = user.email || "";
+            state.country = user.country || "India";
+            state.currency = user.currency || "Indian Rupee";
+            state.expertise = user.expertise || [];
+            state.linkedInUrl = user.linkedInUrl || "";
+            state.twitterUrl = user.twitterUrl || "";
+            state.instagramUrl = user.instagramUrl || "";
+            state.whatsAppNumber = user.whatsAppNumber || "";
+            state.availability = user.availability || null;
+            state.timezone = user.timezone || "";
+            state.service = user.service || null;
+            state.userImage = user.userImageUrl || null;
+            state.graduationYear = user.graduationYear || new Date().getFullYear() - 4;
+            state.joinDate = user.joinDate;
+        },
         clearUserDetails: (state) => {
             state.userId = null;
             state.firstName = "";
@@ -116,6 +137,7 @@ export const {
     setService,
     setUserImage,
     setGraduationYear,
+    setUserDetails,
     clearUserDetails,
     setJoinDate
 } = userDetailsSlice.actions;

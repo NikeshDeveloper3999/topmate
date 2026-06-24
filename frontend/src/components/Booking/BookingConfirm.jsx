@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import logoIcon from "../../assets/logo-icon2.svg";
 import CreateBookingHook from "../../hooks/CreateBookingHook";
 import createBookingDMHook from "../../hooks/createBookingDMHook";
 import useBookingPayment from "../../hooks/useBookingPayment";
+
+const preloadBookingSuccess = () => import("./BookingSuccess");
+
 const BookingConfirm = () => {
   const { state } = useLocation();
 
@@ -20,7 +23,16 @@ const BookingConfirm = () => {
 
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.userData);
+  const user = useSelector(
+    (state) => ({
+      userId: state.userData.userId,
+      firstName: state.userData.firstName,
+      lastName: state.userData.lastName,
+      email: state.userData.email,
+      whatsAppNumber: state.userData.whatsAppNumber,
+    }),
+    shallowEqual
+  );
 
   const [loading, setLoading] = useState(false);
 
@@ -51,27 +63,41 @@ error: bookingError,
     error: bookingErrorDM,
   } = createBookingDMHook();
 
+  useEffect(() => {
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(preloadBookingSuccess, {
+        timeout: 1500,
+      });
+
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = window.setTimeout(preloadBookingSuccess, 800);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   // SET USER DATA
   useEffect(() => {
     setForm((prev) => ({
       ...prev,
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      email: user?.email || "",
-      phone: user?.whatsAppNumber || "",
+      firstName: prev.firstName || user?.firstName || "",
+      lastName: prev.lastName || user?.lastName || "",
+      email: prev.email || user?.email || "",
+      phone: prev.phone || user?.whatsAppNumber || "",
     }));
-  }, [user]);
+  }, [user.firstName, user.lastName, user.email, user.whatsAppNumber]);
 
 
 
 
   // HANDLE CHANGE
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }, []);
 
   // SUBMIT
   const handleSubmit = async () => {
@@ -120,6 +146,7 @@ error: bookingError,
 
     try {
       setLoading(true);
+      preloadBookingSuccess();
 
   let res;
 

@@ -1,8 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import {
+  CheckCircle,
   MessageCircle,
   Video,
   Clock,
@@ -14,12 +15,17 @@ import {
   FileInput,
 } from "lucide-react";
 
-import { FaCheckCircle } from "react-icons/fa";
-
 const BookingSuccess = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.userData);
+  const user = useSelector(
+    (state) => ({
+      firstName: state.userData.firstName,
+      lastName: state.userData.lastName,
+      email: state.userData.email,
+    }),
+    shallowEqual
+  );
 
   const booking = state?.booking;
   const service = state?.service;
@@ -92,7 +98,7 @@ const BookingSuccess = () => {
             </div>
 
             <span className="flex items-center gap-1 bg-[#0E2821] border border-[#285E50] rounded-full text-green-400 px-3 py-1 text-sm font-semibold">
-              <FaCheckCircle size={14} />
+              <CheckCircle size={14} />
               confirmed
             </span>
           </div>
@@ -146,7 +152,7 @@ const BookingSuccess = () => {
             Your booking is
 
             <span className="flex items-center font-bold gap-1 bg-[#DCFCE7] rounded-full text-green-500 px-3 py-1 text-sm">
-              <FaCheckCircle size={14} />
+              <CheckCircle size={14} />
               confirmed
             </span>
           </h2>
