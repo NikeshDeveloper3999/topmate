@@ -664,22 +664,13 @@ booking.withdrawn = false;
       booking.reminderTime =
         new Date(meetingTime.getTime() -30 * 60 * 1000);
     }
+const [serviceData, seekerUser, creatorUser] = await Promise.all([
+  Service.findById(booking.service).lean(),
+  User.findById(booking.seeker).lean(),
+  User.findById(booking.creator).lean(),
+]);
 
-    // Fetch related data
-    const serviceData =
-      await Service.findById(
-        booking.service
-      );
 
-    const seekerUser =
-      await User.findById(
-        booking.seeker
-      );
-
-    const creatorUser =
-      await User.findById(
-        booking.creator
-      );
 
     // Create Zoom meeting only for call bookings
     if (
@@ -730,17 +721,14 @@ booking.withdrawn = false;
 
       }
     }
+await booking.save();
 
-    await booking.save();
+sendBookingEmails({ booking, service: serviceData, seeker: seekerUser, creator: creatorUser })
+  .catch((err) => console.error("Booking email failed:", err));
 
-    // Send confirmation email
-    await sendBookingEmails({
-      booking,
-      service: serviceData,
-      seeker: seekerUser,
-      creator: creatorUser,
-    });
 
+
+  
     return res.status(200).json({
       success: true,
       message:

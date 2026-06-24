@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 
 import { createBookingOrder } from "../services/booking-services/createBookingOrder";
 import { verifyBookingPayment } from "../services/booking-services/verifyBookingPayment";
+import { loadRazorpay } from "../utility/loadRazorpay";
 
 const useBookingPayment = () => {
    
@@ -64,7 +65,8 @@ const bookService = async (bookingData) => {
         },
       };
 
-      const rzp = new window.Razorpay(options);
+      const Razorpay = await loadRazorpay();
+      const rzp = new Razorpay(options);
 
       rzp.on("payment.failed", (response) => {
         reject(
