@@ -99,15 +99,18 @@ const PublicProfile = () => {
                         )}
                     </div>
                 </div>
-                <div className="lg:absolute lg:left-5 lg:bottom-5 w-full flex justify-between items-center px-4 lg:px-0 pb-5 lg:pb-0">
-                    <Link to="/" className="flex justify-center items-center h-15">
-                        <img src={topmate_light_logo} alt="topmate" />
-                    </Link>
-                    <Link to="/creator-dashboard" className="flex justify-center items-center mr-10 w-40 h-15 rounded-2xl bg-black text-white text-xl font-medium">Start your page</Link>
-                </div>
+                <div className="lg:absolute lg:left-5 lg:bottom-5 w-full lg:w-auto flex flex-col sm:flex-row items-center justify-between gap-4 px-4 lg:px-0 pb-5 lg:pb-0">
+  <Link to="/" className="flex items-center justify-center">
+    <img src={topmate_light_logo} alt="topmate" className="h-8 sm:h-10 w-auto"/>
+  </Link>
+
+  <Link to="/creator-dashboard" className="flex items-center justify-center bg-black text-white font-medium rounded-xl md:rounded-2xl px-5 py-3 sm:px-6 sm:py-3 md:px-8 md:py-4 text-sm sm:text-base md:text-lg w-full sm:w-auto" >
+    Start your page
+  </Link>
+</div>
             </div>
 
-            <div className="w-full lg:w-[65%] lg:max-h-screen lg:overflow-auto bg-[#EFECE3]">
+            <div className="w-full lg:w-[65%] lg:max-h-screen lg:overflow-auto bg-[#EFECE3]">   
                 <div className="w-full pt-5 px-4 sm:px-8 lg:pl-10 lg:pr-10 pb-10">
                     <div className="flex-1">
                         {recomdation.recomdationText && recomdation.from && (

@@ -55,11 +55,15 @@ const OverviewCard = ({ service }) => {
             </h2>
 
             <div className="flex items-center gap-2 mt-1 text-gray-500">
-              <span className="text-md font-medium">₹ {price}</span>
-              <span className="text-md bg-green-100 text-green-700 px-2 py-0.5 rounded-md">
-                New
-              </span>
-            </div>
+
+              {price == 0 ? (
+                <span className="text-md font-medium">
+                  Free
+                </span>
+              ) : (
+                <span className="text-md font-medium">₹ {price}</span>
+              )}
+              </div>
           </div>
         </div>
 

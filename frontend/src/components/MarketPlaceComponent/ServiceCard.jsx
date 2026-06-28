@@ -42,10 +42,15 @@ const ServiceCard = ({ service }) => {
 
         <div>
           <h2 className="text-lg font-semibold line-clamp-2">{title}</h2>
-
-          <p className="text-md text-gray-500">
-            ₹ {price} | ⭐ 4.5(50)
-          </p>
+          { price === 0 ? (
+            <p className="text-md text-gray-500">
+            Free | ⭐ 4.5(50)
+            </p>
+          ) : (
+            <p className="text-md text-gray-500">
+              ₹ {price} | ⭐ 4.5(50)
+            </p>
+          )}
         </div>
       </div>
 
